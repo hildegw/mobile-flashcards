@@ -2,11 +2,7 @@ import { AsyncStorage } from 'react-native'
 
 export const CARD_DATA_STORAGE = 'MobileFlashcardsData'
 
-function getRandomNumber (max) {
-  return Math.floor(Math.random() * max) + 0
-}
-
-function getStartData () {
+export function setStartData () {
   const startData = {
     React: {
       title: 'React',
@@ -31,6 +27,6 @@ function getStartData () {
       ]
     }
   }
-  //TODO: AsyncStorage.setDummyData(CARD_DATA_STORAGE_KEY, JSON.stringify(dummyData))
+  AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({startData}))
   return startData
 }

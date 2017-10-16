@@ -3,6 +3,11 @@ import { getStartData, CARD_DATA_STORAGE } from './_cardData'
 
 //TODO: add delete?
 
+//move to another util, to randomly select cards
+function getRandomNumber (max) {
+  return Math.floor(Math.random() * max) + 0
+}
+
 export function getAllDecks () {
   return AsyncStorage.getItem(CARD_DATA_STORAGE)
     .then(console.log("getAll in cardAPI"))
