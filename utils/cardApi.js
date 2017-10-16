@@ -10,7 +10,11 @@ function getRandomNumber (max) {
 
 export function getAllDecks () {
   return AsyncStorage.getItem(CARD_DATA_STORAGE)
-    .then(console.log("getAll in cardAPI"))
+    .then((data) => {
+      const parsedData = JSON.parse(data)
+      console.log('api getall, data:',  parsedData)
+      return parsedData
+    })
 }
 
 export function getDeck (title) {
@@ -22,9 +26,9 @@ export function getDeck (title) {
 }
 
 export function addCardToDeck ({ newCard, title }) {
-  return AsyncStorage.mergeItem(CARD_DATA_STORAGE, JSON.stringify({
-    title[questions].push(newCard) //TODO check, add newCard to array
-  }))
+  return AsyncStorage.mergeItem(CARD_DATA_STORAGE, JSON.stringify(
+    title[questions].push(newCard)
+  ))
 }
 
 export function saveDeckTitle ({ newTitle, allDecks }) {
