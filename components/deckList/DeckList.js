@@ -10,30 +10,26 @@ import { yellowLight, white } from '../../utils/colors'
 //import { NavigationActions } from 'react-navigation'
 
 class DeckList extends Component {
-  state = {
-    startData: null,
-  }
 
   componentDidMount() {
     const start = setStartData() //TODO remove, or load just once
     getAllDecks().then((result) => {
       const { startData } = result
-      //console.log('Deck render, result from getall:',  result)
-      //this.setState(() => ({startData: startData}))
+      //console.log('Deck didMount: ',  startData['React']['questions'].length)
       this.props.allDecks({startData: startData})
     })
   }
 
   render() {
     const { startData } = this.props
-    console.log('DeckList render, this.props.startData', this.props.startData)
+    //console.log('DeckList render, this.props.startData', this.props.startData)
 
     return (
       <View>
       {startData !== undefined && Object.keys(startData).map((title) => {
         return (
           <View style={styles.container} key={title}>
-            <DeckEntry title={title} count='3'  />
+            <DeckEntry title={title} count={startData[title]['questions'].length}  />
           </View>
         )})}
       </View>
