@@ -3,13 +3,17 @@ import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList } from 're
 //import { Ionicons } from '@expo/vector-icons'
 import DeckEntry from './DeckEntry'
 import { getAllDecks } from '../../utils/cardApi'
-import { setStartData, objToArray } from '../../utils/_cardData'
+import { setStartData, dataToArray } from '../../utils/_cardData'
 import { connect } from 'react-redux'
 import { allDecks } from './deckListAction'
 import { yellowLight, white } from '../../utils/colors'
 //import { NavigationActions } from 'react-navigation'
 
 class DeckList extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return { title: 'Mobile Flashcards' }
+  }
 
   componentDidMount() {
     const start = setStartData() //TODO remove, or load just once
@@ -31,7 +35,7 @@ class DeckList extends Component {
 
   render() {
     const { startData } = this.props
-    const listData = objToArray(startData)
+    const listData = dataToArray(startData)
 
     return (
       <View style={styles.deckList}>

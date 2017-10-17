@@ -31,8 +31,8 @@ export function setStartData () {
   return startData
 }
 
-export function objToArray (startData) {
-  const listData = []
+export function dataToArray (startData) {
+  let listData = []
   if (startData !== undefined) {
     Object.keys(startData).map((title) => {
       let count = startData[title]['questions'].length
@@ -40,4 +40,13 @@ export function objToArray (startData) {
     })
   }
   return listData
+}
+
+export function dataSelectDeck (startData, title) {
+  let selectedDeck = {}
+  Object.keys(startData).map((item) => {
+    if (item === title) selectedDeck = startData[item]
+  })
+  console.log('cardData, selectedDeck', selectedDeck)
+  return selectedDeck
 }

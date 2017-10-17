@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { yellowLight, white } from '../../utils/colors'
 //import { NavigationActions } from 'react-navigation'
+import { dataSelectDeck } from '../../utils/_cardData'
 
 class Deck extends Component {
 
@@ -11,13 +12,18 @@ class Deck extends Component {
     return { title: title }
   }
 
-
-
   render() {
+    const { startData } = this.props
+    const { title } = this.props.navigation.state.params
+    const selectedDeck = dataSelectDeck(startData, title)
+    const count = selectedDeck['questions'].length
+
+    //console.log('Deck render, title from nav',  title)
 
     return (
       <View style={styles.container}>
-        <Text>{JSON.stringify(this.props.startData)}</Text>
+        <Text>{selectedDeck.title}</Text>
+        <Text>{count}</Text>
       </View>
     )
   }
