@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   deckListItem: {
-    marginBottom: 1,
+    margin: 1,
   },
 })
 
