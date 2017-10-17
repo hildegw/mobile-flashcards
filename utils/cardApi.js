@@ -12,7 +12,7 @@ export function getAllDecks () {
   return AsyncStorage.getItem(CARD_DATA_STORAGE)
     .then((data) => {
       const parsedData = JSON.parse(data)
-      console.log('api getall, data:',  parsedData)
+      //console.log('api getall, data:',  parsedData)
       return parsedData
     })
 }

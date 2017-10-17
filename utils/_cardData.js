@@ -30,3 +30,14 @@ export function setStartData () {
   AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({startData}))
   return startData
 }
+
+export function objToArray (startData) {
+  const listData = []
+  if (startData !== undefined) {
+    Object.keys(startData).map((title) => {
+      let count = startData[title]['questions'].length
+      listData.push({ 'key': title, 'count': count })
+    })
+  }
+  return listData
+}

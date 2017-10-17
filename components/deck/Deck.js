@@ -1,34 +1,23 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native'
-//import { Ionicons } from '@expo/vector-icons'
-//import TextButton from './TextButton'
-import { getAllDecks } from '../../utils/cardApi'
-import { setStartData } from '../../utils/_cardData'
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { yellowLight, white } from '../../utils/colors'
 //import { NavigationActions } from 'react-navigation'
 
 class Deck extends Component {
-  state = {
-    startData: null,
+
+  static navigationOptions = ({ navigation }) => {
+    const { title } = navigation.state.params
+    return { title: title }
   }
 
-  componentDidMount() {
-    const start = setStartData() //TODO remove
 
-    //TODO just fetch data with required title
-    getAllDecks().then((result) => {
-      const { startData } = result
-      console.log('Deck render, result from getall:',  result)
-      this.setState(() => ({startData: startData}))
-    })
-  }
 
   render() {
 
     return (
       <View style={styles.container}>
-        <Text>{JSON.stringify(this.state.startData)}</Text>
+        <Text>{JSON.stringify(this.props.startData)}</Text>
       </View>
     )
   }

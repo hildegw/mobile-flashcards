@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList } from 're
 //import { Ionicons } from '@expo/vector-icons'
 import DeckEntry from './DeckEntry'
 import { getAllDecks } from '../../utils/cardApi'
-import { setStartData } from '../../utils/_cardData'
+import { setStartData, objToArray } from '../../utils/_cardData'
 import { connect } from 'react-redux'
 import { allDecks } from './deckListAction'
 import { yellowLight, white } from '../../utils/colors'
@@ -20,25 +20,18 @@ class DeckList extends Component {
     })
   }
 
-  objToArray () {
-    const { startData } = this.props
-    const listData = []
-    if (startData !== undefined) {
-      Object.keys(startData).map((title) => {
-        let count = startData[title]['questions'].length
-        listData.push({ 'key': title, 'count': count })
-      })
-    }
-    return listData
+  onPressItem(title, navigate) {
+    //console.log('Decklist render, navigate:', navigate)
+    navigate(
+      'Deck',
+      { title: title }
+    )
+    console.log('Decklist:', title)
   }
-
-  _keyExtractor = (item, title) => item.title;
 
   render() {
     const { startData } = this.props
-    const listData = this.objToArray()
-    const test = [{ 'React': 'abc' }, { 'Redux': 'abc' }, ]
-    console.log('DeckList render, startData:', startData)
+    const listData = objToArray(startData)
 
     return (
       <View style={styles.deckList}>
@@ -46,12 +39,14 @@ class DeckList extends Component {
         <FlatList
           data = {listData}
           renderItem = {(({item}) =>
-            <DeckEntry title={item.key} count={item.count}  />
+            <DeckEntry
+              title={item.key}
+              count={item.count}
+              onPressItem={this.onPressItem}
+              navigate={this.props.navigation.navigate}
+            />
           )}
         />}
-
-
-
       </View>
     )
   }
@@ -60,15 +55,12 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   deckList: {
     flex: 1,
-    padding: 40,
     justifyContent: 'flex-start',
-  },
-  deckListItem: {
-    marginBottom: 1,
   },
 })
 
 function mapStateToProps (state) {
+  //console.log('mapStateToProps', state)
   return state
 }
 
