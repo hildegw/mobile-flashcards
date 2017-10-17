@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native'
 //import { Ionicons } from '@expo/vector-icons'
 import DeckEntry from './DeckEntry'
 import { getAllDecks } from '../../utils/cardApi'
@@ -20,38 +20,18 @@ class DeckList extends Component {
     })
   }
 
-  objToArray () {
-    const { startData } = this.props
-    const listData = []
-    if (startData !== undefined) {
-      Object.keys(startData).map((title) => {
-        let count = startData[title]['questions'].length
-        listData.push({ 'key': title, 'count': count })
-      })
-    }
-    return listData
-  }
-
-  _keyExtractor = (item, title) => item.title;
-
   render() {
     const { startData } = this.props
-    const listData = this.objToArray()
-    const test = [{ 'React': 'abc' }, { 'Redux': 'abc' }, ]
-    console.log('DeckList render, startData:', startData)
+    //console.log('DeckList render, this.props.startData', this.props.startData)
 
     return (
       <View style={styles.deckList}>
-        { listData !== undefined &&
-        <FlatList
-          data = {listData}
-          renderItem = {(({item}) =>
-            <DeckEntry title={item.key} count={item.count}  />
-          )}
-        />}
-
-
-
+      {startData !== undefined && Object.keys(startData).map((title) => {
+        return (
+          <View style={styles.deckListItem} key={title}>
+            <DeckEntry title={title} count={startData[title]['questions'].length}  />
+          </View>
+        )})}
       </View>
     )
   }
@@ -60,11 +40,10 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   deckList: {
     flex: 1,
-    padding: 40,
     justifyContent: 'flex-start',
   },
   deckListItem: {
-    marginBottom: 1,
+    margin: 1,
   },
 })
 
