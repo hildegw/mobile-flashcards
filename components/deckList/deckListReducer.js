@@ -1,11 +1,11 @@
-import { RECEIVE_ENTRIES, ADD_ENTRY } from './deckAction'
+import { ALL_DECKS, ADD_ENTRY } from './deckListAction'
 
 function entries (state = {}, action) {
   switch (action.type) {
-    case RECEIVE_ENTRIES :
+    case ALL_DECKS :
       return {
         ...state,
-        ...action.entries,
+        ...action.allDecks,
       }
     case ADD_ENTRY :
       return {

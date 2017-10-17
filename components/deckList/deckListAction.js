@@ -1,10 +1,10 @@
-export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES'
+export const ALL_DECKS = 'ALL_DECKS'
 export const ADD_ENTRY = 'ADD_ENTRY'
 
-export function receiveEntries (entries) {
+export function allDecks (allDecks) {
   return {
-    type: RECEIVE_ENTRIES,
-    entries,
+    type: ALL_DECKS,
+    allDecks,
   }
 }
 
