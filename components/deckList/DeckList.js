@@ -25,10 +25,10 @@ class DeckList extends Component {
     //console.log('DeckList render, this.props.startData', this.props.startData)
 
     return (
-      <View>
+      <View style={styles.deckList}>
       {startData !== undefined && Object.keys(startData).map((title) => {
         return (
-          <View style={styles.container} key={title}>
+          <View style={styles.deckListItem} key={title}>
             <DeckEntry title={title} count={startData[title]['questions'].length}  />
           </View>
         )})}
@@ -38,10 +38,12 @@ class DeckList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  deckList: {
     flex: 1,
-    paddingTop: 60,
-    margin: 40,
+    justifyContent: 'flex-start',
+  },
+  deckListItem: {
+    marginBottom: 1,
   },
 })
 
