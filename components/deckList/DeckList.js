@@ -40,9 +40,8 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 60,
     margin: 40,
-    backgroundColor: white
   },
 })
 
