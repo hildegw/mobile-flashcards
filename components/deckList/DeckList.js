@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList } from 're
 //import { Ionicons } from '@expo/vector-icons'
 import DeckEntry from './DeckEntry'
 import { getAllDecks } from '../../utils/cardApi'
-import { setStartData, dataToArray } from '../../utils/_cardData'
+import { setStartData, dataSelectDeckTitles } from '../../utils/_cardData'
 import { connect } from 'react-redux'
 import { allDecks } from './deckListAction'
 import { yellowLight, white } from '../../utils/colors'
@@ -35,7 +35,7 @@ class DeckList extends Component {
 
   render() {
     const { startData } = this.props
-    const listData = dataToArray(startData)
+    const listData = dataSelectDeckTitles(startData)
 
     return (
       <View style={styles.deckList}>

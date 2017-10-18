@@ -31,7 +31,7 @@ export function setStartData () {
   return startData
 }
 
-export function dataToArray (startData) {
+export function dataSelectDeckTitles (startData) {
   let listData = []
   if (startData !== undefined) {
     Object.keys(startData).map((title) => {
