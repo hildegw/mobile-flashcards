@@ -14,8 +14,12 @@ class Deck extends Component {
     return { title: title }
   }
 
-  onPress () {
-    console.log('presssssed')
+  onPressAddCard () {
+    console.log('presssssed add')
+  }
+
+  onPressStartQuiz () {
+    console.log('presssssed start')
   }
 
   render() {
@@ -37,17 +41,19 @@ class Deck extends Component {
                 {count} cards
               </Text>
         }
-        <TextButton
-          onPress={this.onPress}
-          children={'Add Card'}
-          style={{alignSelf: 'center'}} >
-        </TextButton>
 
-        <TextButton
-          onPress={this.onPress}
-          children={'Start Quiz'}
-          style={[{borderColor: orangeLight}, {backgroundColor: orangeLight}]} >
-        </TextButton>
+        <View style={styles.buttonsInRow} >
+          <TextButton
+            onPress={this.onPressAddCard}
+            children={'Add Card'} >
+          </TextButton>
+
+          <TextButton
+            onPress={this.onPressStartQuiz}
+            children={'Start Quiz'}
+            style={[{borderColor: orangeLight}, {backgroundColor: orangeLight}]} >
+          </TextButton>
+        </View>
       </View>
 
   )}
@@ -66,6 +72,9 @@ const styles = StyleSheet.create({
     fontSize:20,
     color: grey,
     paddingTop: 10,
+  },
+  buttonsInRow:{
+    flexDirection: 'row',
   }
 })
 

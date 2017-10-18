@@ -15,18 +15,17 @@ export default function TextButton ({ children, onPress, style = {} }) {
 const styles = StyleSheet.create({
   textButton: {
     backgroundColor: green,
-    padding: 30,
-    marginTop: 30,
-    height: 45,
+    padding: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    margin: 10,
+    marginTop: 40,
     borderRadius: 10,
     borderWidth: 5,
     borderColor: green,
-    alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-
   },
-
   textButtonText: {
     color: white,
     fontSize: 20,
