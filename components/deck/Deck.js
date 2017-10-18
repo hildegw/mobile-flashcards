@@ -11,22 +11,20 @@ class Deck extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
-    return { title: title }
+    return { title: title + ' Deck'}
   }
 
   onPressAddCard () {
     console.log('presssssed add')
   }
 
-  onPressStartQuiz () {
-    console.log('presssssed start')
-  }
-
   render() {
+    //console.log('in Deck render: this.props.navi:', this.props.navigation.navigate)
     const { startData } = this.props
     const { title } = this.props.navigation.state.params
     const selectedDeck = dataSelectDeck(startData, title)
     const count = selectedDeck['questions'].length
+    const { navigate } = this.props.navigation
 
     return (
       <View style={styles.container}>
@@ -45,14 +43,17 @@ class Deck extends Component {
         <View style={styles.buttonsInRow} >
           <TextButton
             onPress={this.onPressAddCard}
-            children={'Add Card'} >
-          </TextButton>
+            children={'Add Card'}
+          />
 
           <TextButton
-            onPress={this.onPressStartQuiz}
+            onPress={() => this.props.navigation.navigate(
+              'CardList',
+              { title: selectedDeck.title }
+            )}
             children={'Start Quiz'}
-            style={[{borderColor: orangeLight}, {backgroundColor: orangeLight}]} >
-          </TextButton>
+            style={[{borderColor: orangeLight}, {backgroundColor: orangeLight}]}
+          />
         </View>
       </View>
 
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
+  console.log('mapStateToProps in Deck', state)
   return state
 }
 

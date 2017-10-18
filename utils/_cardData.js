@@ -47,6 +47,6 @@ export function dataSelectDeck (startData, title) {
   Object.keys(startData).map((item) => {
     if (item === title) selectedDeck = startData[item]
   })
-  console.log('cardData, selectedDeck', selectedDeck)
+  //console.log('cardData, selectedDeck', selectedDeck)
   return selectedDeck
 }

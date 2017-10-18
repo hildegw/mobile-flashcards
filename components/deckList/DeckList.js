@@ -25,12 +25,10 @@ class DeckList extends Component {
   }
 
   onPressItem(title, navigate) {
-    //console.log('Decklist render, navigate:', navigate)
     navigate(
       'Deck',
       { title: title }
     )
-    console.log('Decklist:', title)
   }
 
   render() {

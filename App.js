@@ -5,6 +5,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import deckListReducer from './components/deckList/deckListReducer'
 import Deck from './components/deck/Deck'
+import CardList from './components/deck/CardList'
 import { green, white } from './utils/colors'
 import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
@@ -31,6 +32,15 @@ const MainNavigator = StackNavigator({
   },
   Deck: {
     screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: green,
+      }
+    }
+  },
+  CardList: {
+    screen: CardList,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
