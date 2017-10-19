@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { grey, greyLight, yellowLight, white, green, orangeLight } from '../../utils/colors'
+import { grey, greyLight, yellowLight, white, green, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import TextButton from './TextButton'
 
@@ -19,7 +19,6 @@ class Deck extends Component {
   }
 
   render() {
-    //console.log('in Deck render: this.props.navi:', this.props.navigation.navigate)
     const { startData } = this.props
     const { title } = this.props.navigation.state.params
     const selectedDeck = dataSelectDeck(startData, title)
@@ -47,12 +46,12 @@ class Deck extends Component {
           />
 
           <TextButton
-            onPress={() => this.props.navigation.navigate(
+            onPress={() => navigate(
               'CardList',
               { title: selectedDeck.title }
             )}
             children={'Start Quiz'}
-            style={[{borderColor: orangeLight}, {backgroundColor: orangeLight}]}
+            style={[{borderColor: orange}]}
           />
         </View>
       </View>

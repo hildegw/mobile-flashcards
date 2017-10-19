@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, FlatList, Dimensions, PixelRatio } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { grey, yellowDark, yellowLight, white, green, orangeLight } from '../../utils/colors'
+import { grey, yellowDark, yellowLight, white, green, greenLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import TextButton from './TextButton'
+import Card from './Card'
 
 //TODO add score from previous try
 
-class Card extends Component {
+class CardList extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
-    return { title: title + ' quiz question' }
+    return { title: title + ' quiz questions' }
   }
 
   onPressAddCard () {
@@ -23,43 +24,34 @@ class Card extends Component {
   }
 
   render() {
-    const { startData } = this.props
     const { title } = this.props.navigation.state.params
+    const { startData } = this.props
     const selectedDeck = dataSelectDeck(startData, title)
-    const deviceWidth = Dimensions.get('window').width
-    console.log('render Card, width:', deviceWidth)
-
+    console.log('Cardlist render, selectedDeck: ', this.props)
 
     return (
       <View style={styles.container} >
         <FlatList
           data = {selectedDeck.questions}
           renderItem = {(({item}) =>
-            <View style={[styles.listItem, {width: deviceWidth}]}>
-              <Text style={styles.text} >
-                  {item.question}
-              </Text>
-            </View>
-            )}
-          keyExtractor={((item, index) => item.question)}
-          showsHorizontalScrollIndicator={false}
-          removeClippedSubviews={true}
+            <Card question={item.question} />
+          )}
+          keyExtractor={(item, index) => index}
+          showsHorizontalScrollIndicator={true}
           horizontal={true}
-          decelerationRate={0}
-          snapToInterval={50}
-          snapToAlignment={'center'}
+          pagingEnabled={true}
         />
 
         <View style={styles.buttonsInRow} >
           <TextButton
-            onPress={this.onPressAddCard}
+            onPress={() => this.onPressCorrect}
             children={' Correct '} >
           </TextButton>
 
           <TextButton
-            onPress={this.onPressStartQuiz}
+            onPress={this.onPressIncorrect}
             children={'Incorrect'}
-            style={[{borderColor: orangeLight}, {backgroundColor: orangeLight}]} >
+            style={[{borderColor: orange}]} >
           </TextButton>
         </View>
       </View>
@@ -71,21 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: yellowDark,
-    paddingTop: 60,
-  },
-  listItem: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: yellowLight,
-    borderRadius: 20,
-    padding: 20,
-
-  },
-  text: {
-    fontSize:20,
-    color: grey,
-    padding: 10,
+    backgroundColor: greenLight,
   },
   buttonsInRow:{
     marginBottom: 40,
@@ -99,4 +77,4 @@ function mapStateToProps (state) {
 
 export default connect(
   mapStateToProps
-)(Card)
+)(CardList)
