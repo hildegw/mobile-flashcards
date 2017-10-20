@@ -12,7 +12,7 @@ class CardList extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
-    return { title: title + ' quiz questions' }
+    return { title: title + ' questions' }
   }
 
   onPressAddCard () {

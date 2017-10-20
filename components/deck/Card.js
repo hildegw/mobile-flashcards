@@ -1,21 +1,28 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
 import { grey, greyLight, yellowLight } from '../../utils/colors'
+import { selectedCard } from './selectedCardAction'
+import { connect } from 'react-redux'
 
-export default function Card ({question}){
 
+class Card extends Component {
 
+  componentDidMount() {
+
+  }
+
+  render() {
     //const { item } = this.props
     const deviceWidth = Dimensions.get('window').width
-    console.log('Card render item:' , question)
+    console.log('Card render item:' , this.props.question)
 
     return (
       <View style={[styles.listItem, {width: deviceWidth-40}]}>
         <Text style={styles.text} >
-            {question}
+            {this.props.question}
         </Text>
       </View>
-  )
+  )}
 }
 
 const styles = StyleSheet.create({
@@ -32,3 +39,13 @@ const styles = StyleSheet.create({
     margin: 40,
   },
 })
+
+function mapStateToProps (state) {
+  //console.log('mapStateToProps', state)
+  return state
+}
+
+export default connect(
+  mapStateToProps,
+  { selectedCard }
+)(Card)
