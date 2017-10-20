@@ -18,7 +18,7 @@ class DeckList extends Component {
     const start = setStartData() //TODO remove, or load just once
     getAllDecks().then((result) => {
       const { startData } = result
-      console.log('Deck didMount: ',  startData['React']['questions'].length)
+      console.log('Deck didMount: ',  startData)
       this.props.allDecks({startData: startData})
     })
   }
@@ -33,7 +33,7 @@ class DeckList extends Component {
   render() {
     const { startData } = this.props
     const listData = dataSelectDeckTitles(startData)
-    console.log('DeckList render, listData', listData)
+    //console.log('DeckList render, listData', listData)
 
     return (
       <View style={styles.deckList}>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state) {
   //console.log('mapStateToProps', state)
-  return state
+  return state.deckList
 }
 
 

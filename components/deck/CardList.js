@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
-  return state
+  return state.deckList
 }
 
 export default connect(

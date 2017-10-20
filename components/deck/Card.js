@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state) {
   //console.log('mapStateToProps', state)
-  return state
+  return state.selectedCard
 }
 
 export default connect(

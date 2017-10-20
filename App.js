@@ -3,10 +3,8 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import DeckList from './components/deckList/DeckList'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-//import reducer from './reducers'
-import deckListReducer from './components/deckList/deckListReducer'
-import selectedCardReducer from './components/deck/selectedCardReducer'
-
+import deckList from './components/deckList/deckListReducer'
+import selectedCard from './components/deck/selectedCardReducer'
 import Deck from './components/deck/Deck'
 import CardList from './components/deck/CardList'
 import { green, white } from './utils/colors'
@@ -14,8 +12,8 @@ import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 
 const reducer = combineReducers({
-  deckListReducer,
-  selectedCardReducer,
+  deckList,
+  selectedCard,
 })
 
 function AppStatusBar ({backgroundColor, ...props}) {
@@ -59,6 +57,7 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
 
   render() {
+    console.log('render App, reducer:', reducer)
     return (
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>

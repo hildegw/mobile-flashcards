@@ -79,8 +79,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
-  console.log('mapStateToProps in Deck', state)
-  return state
+  return state.deckList
 }
 
 export default connect(
