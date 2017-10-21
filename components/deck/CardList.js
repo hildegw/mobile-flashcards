@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { grey, yellowDark, yellowLight, white, green, greenLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import TextButton from './TextButton'
+import Indicator from './Indicator'
 import Card from './Card'
 import { selectCard } from './selectCardAction'
 
@@ -32,10 +33,11 @@ class CardList extends Component {
   }
 
   render() {
-    console.log('Cardlist render, props: ', this.props.selectedCard)
     const { title } = this.props.navigation.state.params
     const { deckList, selectedCard } = this.props
     const selectedDeck = dataSelectDeck(deckList.startData, title)
+    const numberOfQuestions = selectedDeck.questions.length
+    console.log('Cardlist render, props: ', selectedDeck.questions.length)
 
     return (
       <View style={styles.container} >
@@ -53,6 +55,12 @@ class CardList extends Component {
           pagingEnabled={true}
           onViewableItemsChanged={this.onViewableItemsChanged}
         />
+
+        <Indicator
+          key={selectedCard.index}
+          index={selectedCard.index}
+          numberOfQuestions={numberOfQuestions} >
+        </Indicator>
 
         <View style={styles.buttonsInRow} >
           <TextButton
