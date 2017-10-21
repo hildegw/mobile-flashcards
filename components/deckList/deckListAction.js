@@ -2,7 +2,7 @@ export const ALL_DECKS = 'ALL_DECKS'
 export const ADD_ENTRY = 'ADD_ENTRY'
 
 export function allDecks (allDecks) {
-  console.log('deckListAction allDecks', allDecks)
+  //console.log('deckListAction allDecks', allDecks)
 
   return {
     type: ALL_DECKS,

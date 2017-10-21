@@ -5,6 +5,7 @@ import { grey, yellowDark, yellowLight, white, green, greenLight, orange } from 
 import { dataSelectDeck } from '../../utils/_cardData'
 import TextButton from './TextButton'
 import Card from './Card'
+import { selectCard } from './selectCardAction'
 
 //TODO add score from previous try
 
@@ -15,8 +16,15 @@ class CardList extends Component {
     return { title: title + ' questions' }
   }
 
-  onPressAddCard () {
-    console.log('1srt button add')
+  componentDidMount() {
+    this.props.selectCard({index: 0})
+    this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
+  }
+
+  onViewableItemsChanged (items) {
+    let viewableCardIndex = 0
+    if (items !== undefined) viewableCardIndex = items.viewableItems.shift().key
+    this.props.selectCard({index: viewableCardIndex})
   }
 
   onPressStartQuiz () {
@@ -24,22 +32,26 @@ class CardList extends Component {
   }
 
   render() {
+    console.log('Cardlist render, props: ', this.props.selectedCard)
     const { title } = this.props.navigation.state.params
-    const { startData } = this.props
-    const selectedDeck = dataSelectDeck(startData, title)
-    console.log('Cardlist render, selectedDeck: ', this.props)
+    const { deckList, selectedCard } = this.props
+    const selectedDeck = dataSelectDeck(deckList.startData, title)
 
     return (
       <View style={styles.container} >
         <FlatList
           data = {selectedDeck.questions}
           renderItem = {(({item}) =>
-            <Card question={item.question} />
+            <Card
+              question={item.question}
+              answer={item.answer}
+            />
           )}
           keyExtractor={(item, index) => index}
           showsHorizontalScrollIndicator={true}
           horizontal={true}
           pagingEnabled={true}
+          onViewableItemsChanged={this.onViewableItemsChanged}
         />
 
         <View style={styles.buttonsInRow} >
@@ -72,9 +84,11 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
-  return state.deckList
+  //console.log('mapStateToProps in CarsList, state:', state)
+  return state
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  { selectCard }
 )(CardList)

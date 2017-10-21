@@ -1,15 +1,8 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
 import { grey, greyLight, yellowLight } from '../../utils/colors'
-import { selectedCard } from './selectedCardAction'
-import { connect } from 'react-redux'
-
 
 class Card extends Component {
-
-  componentDidMount() {
-
-  }
 
   render() {
     //const { item } = this.props
@@ -40,12 +33,5 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps (state) {
-  //console.log('mapStateToProps', state)
-  return state.selectedCard
-}
 
-export default connect(
-  mapStateToProps,
-  { selectedCard }
-)(Card)
+export default Card
