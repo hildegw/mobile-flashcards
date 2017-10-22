@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions, Animated } from 'react-native'
 import { grey, greyLight, yellowLight } from '../../utils/colors'
 
+//TODO revisit animation
+
 class Card extends Component {
 
   state = {
@@ -11,11 +13,11 @@ class Card extends Component {
 
   onPress = () => {
     if (this.state.flip) {
-      Animated.timing(this.state.animatedValue, { totalValue: 180, duration: 800 }).start()
-      this.setState({ flip: false })
+      Animated.timing(this.state.animatedValue, { totalValue: 180, duration: 800 })
+      .start((finished) => this.setState({ flip: false, animatedValue: new Animated.Value(0) }))
     } else {
-      Animated.timing(this.state.animatedValue, { totalValue: 0, duration: 800 }).start()
-      this.setState({ flip: true })
+      Animated.timing(this.state.animatedValue, { totalValue: 0, duration: 800 })
+        .start((finished) => this.setState({ flip: true, animatedValue: new Animated.Value(180) }))
     }
   }
 
@@ -29,13 +31,18 @@ class Card extends Component {
       inputRange: [0, 180],
       outputRange: ['180deg', '360deg'],
     })
-    const frontAnimatedStyle = { transform: [{ rotateX: frontInterpolate}] }
-    const backAnimatedStyle = { transform: [{ rotateX: backInterpolate}] }
+    const zInterpolate = this.state.animatedValue.interpolate({
+      inputRange: [0, 360],
+      outputRange: ['0deg', '360deg'],
+    })
+    const frontAnimatedStyle = { transform: [{ rotateY: frontInterpolate}, {rotateZ: zInterpolate}] }
+    const backAnimatedStyle = { transform: [{ rotateY: backInterpolate}] }
     const deviceWidth = Dimensions.get('window').width
     console.log('Card render :' , this.state, frontInterpolate)
 
     return (
-      <View>
+      <Animated.View
+        style={[styles.container, {width: deviceWidth-40}]}>
         <Animated.View
           style={[styles.listItem, frontAnimatedStyle, {width: deviceWidth-40}]}
           onPress={this.onPress} >
@@ -43,35 +50,36 @@ class Card extends Component {
               {this.props.question}
           </Text>
         </Animated.View>
+
         <Animated.View
-          style={[backAnimatedStyle, styles.listItem, styles.listItemBack, {width: deviceWidth-40}]}
+          style={[backAnimatedStyle, styles.listItem, {width: deviceWidth-40}]}
           onPress={this.onPress} >
           <Text style={styles.text} >
               {this.props.answer}
           </Text>
         </Animated.View>
-        <TouchableOpacity onPress={this.onPress}>
+
+        <TouchableOpacity
+          style={styles.listItem}
+          onPress={this.onPress}>
           <Text style={styles.text} >
               show answer
           </Text>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
   )}
 }
 
 const styles = StyleSheet.create({
-  listItem: {
+  container: {
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: yellowLight,
     borderRadius: 20,
     margin: 20,
-    backfaceVisibility: 'hidden'
   },
-  listItemBack: {
-    backgroundColor: yellowLight,
-    position: 'absolute',
-    top: 0,
+  listItem: {
+    backfaceVisibility: 'hidden',
   },
   text: {
     fontSize:20,

@@ -3,10 +3,11 @@ import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native
 import { connect } from 'react-redux'
 import { grey, yellowDark, yellowLight, white, green, greenLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
-import TextButton from './TextButton'
+import SelectButton from './SelectButton'
 import Indicator from './Indicator'
 import Card from './Card'
 import { selectCard } from './selectCardAction'
+import { scoreCounter } from './scoreAction'
 
 //TODO add score from previous try
 
@@ -20,6 +21,8 @@ class CardList extends Component {
   componentDidMount() {
     this.props.selectCard({index: 0})
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
+    this.onPressCorrect = this.onPressCorrect.bind(this)
+    this.onPressIncorrect = this.onPressIncorrect.bind(this)
   }
 
   onViewableItemsChanged (items) {
@@ -29,15 +32,21 @@ class CardList extends Component {
   }
 
   onPressCorrect () {
-    console.log('button correct')
+    this.props.scoreCounter(1)
+    //TODO how to count correctly - toggle button?
+  }
+
+  onPressIncorrect () {
+    console.log('button incorrect')
+    //TODO call just once and keep pressed
   }
 
   render() {
     const { title } = this.props.navigation.state.params
-    const { deckList, selectedCard } = this.props
+    const { deckList, selectedCard, score } = this.props
     const selectedDeck = dataSelectDeck(deckList.startData, title)
     const numberOfQuestions = selectedDeck.questions.length
-    console.log('Cardlist render, props: ', selectedDeck.questions.length)
+    console.log('Cardlist render, props: ', score)
 
     return (
       <View style={styles.container} >
@@ -63,16 +72,16 @@ class CardList extends Component {
         </Indicator>
 
         <View style={styles.buttonsInRow} >
-          <TextButton
-            onPress={() => this.onPressCorrect}
+          <SelectButton
+            onPress={this.onPressCorrect}
             children={' Correct '} >
-          </TextButton>
+          </SelectButton>
 
-          <TextButton
+          <SelectButton
             onPress={this.onPressIncorrect}
             children={'Incorrect'}
             style={[{borderColor: orange}]} >
-          </TextButton>
+          </SelectButton>
         </View>
       </View>
       )}
@@ -98,5 +107,5 @@ function mapStateToProps (state) {
 
 export default connect(
   mapStateToProps,
-  { selectCard }
+  { selectCard, scoreCounter }
 )(CardList)
