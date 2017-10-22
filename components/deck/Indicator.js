@@ -1,12 +1,14 @@
 import React from 'react'
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import { green, white, grey, yellowLight } from '../../utils/colors'
 
 export default function Indicator ({ numberOfQuestions, index }) {
   return (
-    <TouchableOpacity >
-      <Text style={styles.textButtonText}>{index+1} / {numberOfQuestions}</Text>
-    </TouchableOpacity>
+    <View style={styles.textButton}>
+      <Text style={styles.textButtonText} >
+        {index+1} / {numberOfQuestions}
+      </Text>
+    </View>
   )
 }
 
@@ -17,9 +19,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     margin: 10,
-    marginTop: 40,
     borderRadius: 100,
-    borderWidth: 5,
+    borderWidth: 0,
     borderColor: green,
     justifyContent: 'center',
     alignItems: 'center',

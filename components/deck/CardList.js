@@ -24,12 +24,12 @@ class CardList extends Component {
 
   onViewableItemsChanged (items) {
     let viewableCardIndex = 0
-    if (items !== undefined) viewableCardIndex = items.viewableItems.shift().key
+    if (items !== undefined && items.viewableItems.length > 0) viewableCardIndex = items.viewableItems.shift().key
     this.props.selectCard({index: viewableCardIndex})
   }
 
-  onPressStartQuiz () {
-    console.log('button start')
+  onPressCorrect () {
+    console.log('button correct')
   }
 
   render() {
