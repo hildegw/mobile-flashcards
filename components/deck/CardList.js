@@ -13,13 +13,28 @@ import { scoreCounter } from './scoreAction'
 
 class CardList extends Component {
 
+  state = {
+    correctAnswers: [],
+  }
+
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
     return { title: title + ' questions' }
   }
 
   componentDidMount() {
+    //set selectedCard prop via action
     this.props.selectCard({index: 0})
+    //determine the number of cards in the deck
+    const { title } = this.props.navigation.state.params
+    const { deckList } = this.props
+    const selectedDeck = dataSelectDeck(deckList.startData, title)
+    const numberOfQuestions = selectedDeck.questions.length
+    //set correctAnswers to true for all cards
+    const correctAnswers = []
+    for (i=0; i<numberOfQuestions; i++) {correctAnswers.push(true)}
+    this.setState({ correctAnswers: correctAnswers})
+    //bind props to functions
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
     this.onPressCorrect = this.onPressCorrect.bind(this)
     this.onPressIncorrect = this.onPressIncorrect.bind(this)
@@ -32,13 +47,22 @@ class CardList extends Component {
   }
 
   onPressCorrect () {
+    const index = this.props.selectedCard
+    const { correctAnswers } = this.state
+    correctAnswers.map((item) => {if (index === item) correctAnswers[index] = true}) //TODO check!
+    this.setState({ correctAnswers: correctAnswers })
     this.props.scoreCounter(1)
+    console.log('onPressCorrect in CardList: state:', this.state)
     //TODO how to count correctly - toggle button?
   }
 
   onPressIncorrect () {
-    console.log('button incorrect')
-    //TODO call just once and keep pressed
+    const index = this.props.selectedCard
+    const { correctAnswers } = this.state
+    correctAnswers.map((item) => {if (index === item) correctAnswers[index] = false}) //TODO check!
+    this.setState({ correctAnswers: correctAnswers })
+    console.log('onPressIncorrect in CardList: state:', correctAnswers[0])
+
   }
 
   render() {
