@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { grey, yellowDark, yellowLight, white, green, greenLight, orange } from '../../utils/colors'
+import { grey, greenBack, yellowDark, yellowLight, green, orangeLight, greenLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import SelectButton from './SelectButton'
 import Indicator from './Indicator'
@@ -95,14 +95,13 @@ class CardList extends Component {
           <SelectButton
             onPress={() => this.onPress('correct')}
             children={' Correct '}
-            style={[cardAnsweredCorrectly && {backgroundColor: orange}]}
-            >
+            style={[cardAnsweredCorrectly && ({borderColor: green}, {backgroundColor: yellowDark})]} >
           </SelectButton>
 
           <SelectButton
             onPress={() => this.onPress('incorrect')}
             children={'Incorrect'}
-            style={[{borderColor: orange}, !cardAnsweredCorrectly && {backgroundColor: orange}]} >
+            style={[{borderColor: orangeLight}, !cardAnsweredCorrectly && ({borderColor: orange}, {backgroundColor: yellowDark})]} >
           </SelectButton>
         </View>
       </View>
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: greenLight,
+    backgroundColor: greenBack,
   },
   buttonsInRow:{
     marginBottom: 40,

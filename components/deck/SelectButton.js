@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { green, white, grey, yellowLight } from '../../utils/colors'
+import { greenLight, white, grey, yellowLight } from '../../utils/colors'
 
 export default function SelectButton ({ children, onPress, style = {} }) {
   return (
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     borderRadius: 100,
     borderWidth: 3,
-    borderColor: green,
+    borderColor: greenLight,
     justifyContent: 'center',
     alignItems: 'center',
   },
