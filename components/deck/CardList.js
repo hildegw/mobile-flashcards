@@ -30,14 +30,13 @@ class CardList extends Component {
     const { deckList } = this.props
     const selectedDeck = dataSelectDeck(deckList.startData, title)
     const numberOfQuestions = selectedDeck.questions.length
-    //set correctAnswers to true for all cards
+    //set correctAnswers to false for all cards
     const correctAnswers = []
-    for (i=0; i<numberOfQuestions; i++) {correctAnswers.push(true)}
+    for (i=0; i<numberOfQuestions; i++) {correctAnswers.push(false)}
     this.setState({ correctAnswers: correctAnswers})
     //bind props to functions
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
-    this.onPressCorrect = this.onPressCorrect.bind(this)
-    this.onPressIncorrect = this.onPressIncorrect.bind(this)
+    this.onPress = this.onPress.bind(this)
   }
 
   onViewableItemsChanged (items) {
@@ -46,23 +45,17 @@ class CardList extends Component {
     this.props.selectCard({index: viewableCardIndex})
   }
 
-  onPressCorrect () {
-    const index = this.props.selectedCard
+  onPress (type) {
+    const { index } = this.props.selectedCard
     const { correctAnswers } = this.state
-    correctAnswers.map((item) => {if (index === item) correctAnswers[index] = true}) //TODO check!
-    this.setState({ correctAnswers: correctAnswers })
+    let newAnswers = []
+    type === 'correct'
+      ? newAnswers = correctAnswers.map((item, idx) => index === idx ? true : item)
+      : newAnswers = correctAnswers.map((item, idx) => index === idx ? false : item)
+    this.setState({ correctAnswers: newAnswers })
     this.props.scoreCounter(1)
-    console.log('onPressCorrect in CardList: state:', this.state)
-    //TODO how to count correctly - toggle button?
-  }
-
-  onPressIncorrect () {
-    const index = this.props.selectedCard
-    const { correctAnswers } = this.state
-    correctAnswers.map((item) => {if (index === item) correctAnswers[index] = false}) //TODO check!
-    this.setState({ correctAnswers: correctAnswers })
-    console.log('onPressIncorrect in CardList: state:', correctAnswers[0])
-
+    console.log('onPressCorrect in CardList: state:', newAnswers)
+    //TODO set counting logic > maybe show component with current status
   }
 
   render() {
@@ -70,7 +63,10 @@ class CardList extends Component {
     const { deckList, selectedCard, score } = this.props
     const selectedDeck = dataSelectDeck(deckList.startData, title)
     const numberOfQuestions = selectedDeck.questions.length
-    console.log('Cardlist render, props: ', score)
+    const { correctAnswers } = this.state
+    const cardAnsweredCorrectly = correctAnswers[selectedCard.index]
+
+    console.log('Cardlist render, props: ', cardAnsweredCorrectly)
 
     return (
       <View style={styles.container} >
@@ -97,14 +93,16 @@ class CardList extends Component {
 
         <View style={styles.buttonsInRow} >
           <SelectButton
-            onPress={this.onPressCorrect}
-            children={' Correct '} >
+            onPress={() => this.onPress('correct')}
+            children={' Correct '}
+            style={[cardAnsweredCorrectly && {backgroundColor: orange}]}
+            >
           </SelectButton>
 
           <SelectButton
-            onPress={this.onPressIncorrect}
+            onPress={() => this.onPress('incorrect')}
             children={'Incorrect'}
-            style={[{borderColor: orange}]} >
+            style={[{borderColor: orange}, !cardAnsweredCorrectly && {backgroundColor: orange}]} >
           </SelectButton>
         </View>
       </View>
