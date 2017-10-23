@@ -14,7 +14,11 @@ export function setStartData () {
         {
           question: 'Where do you make Ajax requests in React?',
           answer: 'The componentDidMount lifecycle event'
-        }
+        },
+        {
+          question: 'Which type of states does React support?',
+          answer: 'React handles local states in parent states.'
+        },
       ]
     },
     JavaScript: {

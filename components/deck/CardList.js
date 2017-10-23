@@ -58,6 +58,11 @@ class CardList extends Component {
     //TODO set counting logic > maybe show component with current status
   }
 
+  renderFooter = () => {
+    console.log('end reached')
+    return (<Text>Ende</Text>)
+  }
+
   render() {
     const { title } = this.props.navigation.state.params
     const { deckList, selectedCard, score } = this.props
@@ -65,8 +70,6 @@ class CardList extends Component {
     const numberOfQuestions = selectedDeck.questions.length
     const { correctAnswers } = this.state
     const cardAnsweredCorrectly = correctAnswers[selectedCard.index]
-
-    console.log('Cardlist render, props: ', cardAnsweredCorrectly)
 
     return (
       <View style={styles.container} >
@@ -83,6 +86,7 @@ class CardList extends Component {
           horizontal={true}
           pagingEnabled={true}
           onViewableItemsChanged={this.onViewableItemsChanged}
+          ListFooterComponent={this.renderFooter}
         />
 
         <Indicator
@@ -122,7 +126,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
-  //console.log('mapStateToProps in CarsList, state:', state)
   return state
 }
 

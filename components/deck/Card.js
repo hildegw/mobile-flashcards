@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions, Animated } from 'react-native'
 import { grey, greyLight, yellowLight } from '../../utils/colors'
 
@@ -38,7 +39,8 @@ class Card extends Component {
     const frontAnimatedStyle = { transform: [{ rotateY: frontInterpolate}, {rotateZ: zInterpolate}] }
     const backAnimatedStyle = { transform: [{ rotateY: backInterpolate}] }
     const deviceWidth = Dimensions.get('window').width
-    console.log('Card render :' , this.state, frontInterpolate)
+    const { score, index } = this.props
+    console.log('Card render :' , this.props)
 
     return (
       <Animated.View
@@ -88,5 +90,11 @@ const styles = StyleSheet.create({
   },
 })
 
+function mapStateToProps (state) {
+  const { score, index } = state
+  return { score, index }
+}
 
-export default Card
+export default connect(
+  mapStateToProps,
+)(Card)
