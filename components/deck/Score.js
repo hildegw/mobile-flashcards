@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Text, View, StyleSheet, Dimensions } from 'react-native'
-import { green, white, grey, yellowLight } from '../../utils/colors'
+import { green, greenLight, greenBack, white, grey, yellowLight } from '../../utils/colors'
 
 class Score extends Component {
 
   render () {
     const deviceWidth = Dimensions.get('window').width
+    const { score, numberOfQuestions } = this.props
+    const percentScore = (score !== undefined) ? score/numberOfQuestions*100 : 0
+    console.log(score)
 
     return (
       <View style={[styles.container, {width: deviceWidth-40}]}>
         <View style={styles.textButton}>
           <Text style={styles.textButtonText} >
-            {this.props.score}
+            {percentScore}
           </Text>
         </View>
       </View>
@@ -22,7 +25,7 @@ class Score extends Component {
 
 const styles = StyleSheet.create({
   textButton: {
-    backgroundColor: yellowLight,
+    backgroundColor: greenLight,
     padding: 20,
     paddingTop: 10,
     paddingBottom: 10,
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: yellowLight,
+    backgroundColor: greenBack,
     borderRadius: 20,
     margin: 20,
   },

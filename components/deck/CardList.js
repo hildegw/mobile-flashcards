@@ -18,6 +18,7 @@ class CardList extends Component {
     correctAnswers: [],
     selectedDeck: {},
     numberOfQuestions: 0,
+    scoreAdded: 0,
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -28,11 +29,12 @@ class CardList extends Component {
   componentDidMount() {
     //set selectedCard prop via action
     this.props.selectCard({index: 0})
-    //determine the number of cards in the deck
+    //determine the number of cards in the deck and set as state
     const { title } = this.props.navigation.state.params
     const { deckList } = this.props
     const selectedDeck = dataSelectDeck(deckList.startData, title)
     const numberOfQuestions = selectedDeck.questions.length
+    this.setState({ selectedDeck: selectedDeck, numberOfQuestions: numberOfQuestions})
     //set correctAnswers to false for all cards
     const correctAnswers = []
     for (i=0; i<numberOfQuestions; i++) {correctAnswers.push(false)}
@@ -41,8 +43,6 @@ class CardList extends Component {
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
     this.onPress = this.onPress.bind(this)
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
-    //get deck parameters and set as state
-    this.setState({ selectedDeck: selectedDeck, numberOfQuestions: numberOfQuestions})
   }
 
   onViewableItemsChanged (items) {
@@ -61,14 +61,27 @@ class CardList extends Component {
       ? newAnswers = correctAnswers.map((item, idx) => index === idx ? true : item)
       : newAnswers = correctAnswers.map((item, idx) => index === idx ? false : item)
     this.setState({ correctAnswers: newAnswers })
-    this.props.scoreCounter(1)
-    console.log('onPressCorrect in CardList: state:', newAnswers)
+
+    //TODO take the data from correctAnswers rather than counting score???
+
+    /*type === 'correct'
+      ? this.state.score === 0
+        ? (this.props.scoreCounter(1),
+          this.setState({ scoreAdded: 1 }))
+        : this.setState({ scoreAdded: 1 })
+      : this.state.score === 1
+        ? (this.props.scoreCounter(-1),
+          this.setState({ scoreAdded: 1 }))
+        : this.setState({ scoreAdded: 1 })*/
+
     //TODO set counting logic > maybe show component with current status
   }
 
   renderScore = () => {
+    console.log('onPress in CardList: counter:', this.props.score)
+
     return (
-      <Score>
+      <Score numberOfQuestions={this.state.numberOfQuestions}>
       </Score>
     )
   }
