@@ -3,9 +3,11 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { grey, greyLight, yellowLight, white, green, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
+import Score from './Score'
 import TextButton from './TextButton'
+import { scoreCounter } from './scoreAction'
 
-//TODO add score from previous try
+//TODO add old result as well
 
 class Deck extends Component {
 
@@ -14,15 +16,21 @@ class Deck extends Component {
     return { title: title + ' Deck'}
   }
 
+  componentDidMount() {
+    //reset score counter in store
+    this.props.scoreCounter(0)
+  }
+
   onPressAddCard () {
     console.log('presssssed add')
+    //TODO
   }
 
   render() {
     const { startData } = this.props
     const { title } = this.props.navigation.state.params
     const selectedDeck = dataSelectDeck(startData, title)
-    const count = selectedDeck['questions'].length
+    const numberOfQuestions = selectedDeck['questions'].length
     const { navigate } = this.props.navigation
 
     return (
@@ -30,14 +38,17 @@ class Deck extends Component {
         <Text style={[styles.text, {fontSize: 32}, {fontWeight: 'bold'}]} >
           {selectedDeck.title}
         </Text>
-        {count === 1
+        {numberOfQuestions === 1
           ?   <Text style={styles.text}>
-                {count} card
+                {numberOfQuestions} card
               </Text>
           :   <Text style={styles.text}>
-                {count} cards
+                {numberOfQuestions} cards
               </Text>
         }
+
+        <Score numberOfQuestions={numberOfQuestions}>
+        </Score>
 
         <View style={styles.buttonsInRow} >
           <TextButton
@@ -83,5 +94,6 @@ function mapStateToProps (state) {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  { scoreCounter }
 )(Deck)
