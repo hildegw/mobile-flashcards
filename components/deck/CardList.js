@@ -54,6 +54,7 @@ class CardList extends Component {
   }
 
   onPress (type) {
+    //keep track of which questions were answered correctly, or not
     const { index } = this.props.selectedCard
     const { correctAnswers } = this.state
     let newAnswers = []
@@ -61,25 +62,15 @@ class CardList extends Component {
       ? newAnswers = correctAnswers.map((item, idx) => index === idx ? true : item)
       : newAnswers = correctAnswers.map((item, idx) => index === idx ? false : item)
     this.setState({ correctAnswers: newAnswers })
-
-    //TODO take the data from correctAnswers rather than counting score???
-
-    /*type === 'correct'
-      ? this.state.score === 0
-        ? (this.props.scoreCounter(1),
-          this.setState({ scoreAdded: 1 }))
-        : this.setState({ scoreAdded: 1 })
-      : this.state.score === 1
-        ? (this.props.scoreCounter(-1),
-          this.setState({ scoreAdded: 1 }))
-        : this.setState({ scoreAdded: 1 })*/
-
-    //TODO set counting logic > maybe show component with current status
+    console.log('onPress correctAnswers', newAnswers)
+    //set score in store state
+    if (newAnswers.length > 0) {
+      const score = newAnswers.filter(answer => answer).length
+      this.props.scoreCounter(score)
+    }
   }
 
   renderScore = () => {
-    console.log('onPress in CardList: counter:', this.props.score)
-
     return (
       <Score numberOfQuestions={this.state.numberOfQuestions}>
       </Score>
@@ -87,11 +78,13 @@ class CardList extends Component {
   }
 
   render() {
+    console.log('onPress in CardList: counter:', this.props.score)
+
     const { deckList, selectedCard, score } = this.props
     const { numberOfQuestions, selectedDeck } = this.state
     const { correctAnswers } = this.state
     const cardAnsweredCorrectly = correctAnswers[selectedCard.index]
-    console.log('viewableCardIndex: ',  selectedCard)
+    //console.log('viewableCardIndex: ',  selectedCard)
 
     return (
       <View style={styles.container} >

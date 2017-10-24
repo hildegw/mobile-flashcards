@@ -7,7 +7,7 @@ function scoreReducer (state = {}, action) {
     case ADD_TO_SCORE :
       return {
         ...state,
-        score: score + action.points,
+        score: action.points,
       }
     default :
       return state
