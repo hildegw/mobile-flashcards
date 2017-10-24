@@ -5,6 +5,7 @@ import { grey, greenBack, yellowDark, yellowLight, green, orangeLight, greenLigh
 import { dataSelectDeck } from '../../utils/_cardData'
 import SelectButton from './SelectButton'
 import Indicator from './Indicator'
+import Score from './Score'
 import Card from './Card'
 import { selectCard } from './selectCardAction'
 import { scoreCounter } from './scoreAction'
@@ -15,6 +16,8 @@ class CardList extends Component {
 
   state = {
     correctAnswers: [],
+    selectedDeck: {},
+    numberOfQuestions: 0,
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -37,11 +40,16 @@ class CardList extends Component {
     //bind props to functions
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
     this.onPress = this.onPress.bind(this)
+    this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
+    //get deck parameters and set as state
+    this.setState({ selectedDeck: selectedDeck, numberOfQuestions: numberOfQuestions})
   }
 
   onViewableItemsChanged (items) {
-    let viewableCardIndex = 0
-    if (items !== undefined && items.viewableItems.length > 0) viewableCardIndex = items.viewableItems.shift().key
+    let viewableCardIndex = -1
+    if (items !== undefined && items.viewableItems.length > 0) {
+      viewableCardIndex = items.viewableItems.shift().key
+    }
     this.props.selectCard({index: viewableCardIndex})
   }
 
@@ -58,18 +66,19 @@ class CardList extends Component {
     //TODO set counting logic > maybe show component with current status
   }
 
-  renderFooter = () => {
-    console.log('end reached')
-    return (<Text>Ende</Text>)
+  renderScore = () => {
+    return (
+      <Score>
+      </Score>
+    )
   }
 
   render() {
-    const { title } = this.props.navigation.state.params
     const { deckList, selectedCard, score } = this.props
-    const selectedDeck = dataSelectDeck(deckList.startData, title)
-    const numberOfQuestions = selectedDeck.questions.length
+    const { numberOfQuestions, selectedDeck } = this.state
     const { correctAnswers } = this.state
     const cardAnsweredCorrectly = correctAnswers[selectedCard.index]
+    console.log('viewableCardIndex: ',  selectedCard)
 
     return (
       <View style={styles.container} >
@@ -86,28 +95,33 @@ class CardList extends Component {
           horizontal={true}
           pagingEnabled={true}
           onViewableItemsChanged={this.onViewableItemsChanged}
-          ListFooterComponent={this.renderFooter}
+          ListFooterComponent={this.renderScore}
         />
 
-        <Indicator
-          key={selectedCard.index}
-          index={selectedCard.index}
-          numberOfQuestions={numberOfQuestions} >
-        </Indicator>
+        {(selectedCard.index > -1) &&
+          <View>
+            <Indicator
+              key={selectedCard.index}
+              index={selectedCard.index}
+              numberOfQuestions={numberOfQuestions} >
+            </Indicator>
 
-        <View style={styles.buttonsInRow} >
-          <SelectButton
-            onPress={() => this.onPress('correct')}
-            children={' Correct '}
-            style={[cardAnsweredCorrectly && ({borderColor: green}, {backgroundColor: yellowDark})]} >
-          </SelectButton>
+            <View style={styles.buttonsInRow} >
+              <SelectButton
+                onPress={() => this.onPress('correct')}
+                children={' Correct '}
+                style={[cardAnsweredCorrectly && ({borderColor: green}, {backgroundColor: yellowDark})]} >
+              </SelectButton>
 
-          <SelectButton
-            onPress={() => this.onPress('incorrect')}
-            children={'Incorrect'}
-            style={[{borderColor: orangeLight}, !cardAnsweredCorrectly && ({borderColor: orange}, {backgroundColor: yellowDark})]} >
-          </SelectButton>
-        </View>
+              <SelectButton
+                onPress={() => this.onPress('incorrect')}
+                children={'Incorrect'}
+                style={[{borderColor: orangeLight}, !cardAnsweredCorrectly && ({borderColor: orange}, {backgroundColor: yellowDark})]} >
+              </SelectButton>
+            </View>
+          </View>
+        }
+
       </View>
       )}
 }

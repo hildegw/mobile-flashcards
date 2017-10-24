@@ -40,7 +40,6 @@ class Card extends Component {
     const backAnimatedStyle = { transform: [{ rotateY: backInterpolate}] }
     const deviceWidth = Dimensions.get('window').width
     const { score, index } = this.props
-    console.log('Card render :' , this.props)
 
     return (
       <Animated.View
