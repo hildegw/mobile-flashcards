@@ -1,7 +1,7 @@
 export const grey = '#34515e'
 export const white = '#fff'
 export const black = '#000'
-export const orangeLight = '#ff8a50'
+export const orangeLight = '#fbe9e7'
 export const orange = '#c41c00'
 export const green = '#5a9216'
 export const yellowLight = '#fffff7'

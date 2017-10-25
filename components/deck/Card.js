@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions, Animated } from 'react-native'
-import { grey, greyLight, yellowLight } from '../../utils/colors'
+import { grey, green, greyLight, yellowLight } from '../../utils/colors'
 
 //TODO revisit animation
 
@@ -24,36 +24,24 @@ class Card extends Component {
 
 
   render() {
-    const frontInterpolate = this.state.animatedValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['0deg', '180deg'],
-    })
     const backInterpolate = this.state.animatedValue.interpolate({
       inputRange: [0, 180],
       outputRange: ['180deg', '360deg'],
     })
-    const zInterpolate = this.state.animatedValue.interpolate({
-      inputRange: [0, 360],
-      outputRange: ['0deg', '360deg'],
-    })
-    const frontAnimatedStyle = { transform: [{ rotateY: frontInterpolate}, {rotateZ: zInterpolate}] }
     const backAnimatedStyle = { transform: [{ rotateY: backInterpolate}] }
     const deviceWidth = Dimensions.get('window').width
     const { score, index } = this.props
 
     return (
-      <Animated.View
-        style={[styles.container, {width: deviceWidth-40}]}>
-        <Animated.View
-          style={[styles.listItem, frontAnimatedStyle, {width: deviceWidth-40}]}
-          onPress={this.onPress} >
+      <View style={[styles.container, {width: deviceWidth-40}]}>
+        <View style={styles.listItem} >
           <Text style={styles.text} >
               {this.props.question}
           </Text>
-        </Animated.View>
+        </View>
 
         <Animated.View
-          style={[backAnimatedStyle, styles.listItem, {width: deviceWidth-40}]}
+          style={[backAnimatedStyle, styles.listItem]}
           onPress={this.onPress} >
           <Text style={styles.text} >
               {this.props.answer}
@@ -63,20 +51,23 @@ class Card extends Component {
         <TouchableOpacity
           style={styles.listItem}
           onPress={this.onPress}>
-          <Text style={styles.text} >
-              show answer
+          <Text style={styles.textSmall} >
+              toggle answer
           </Text>
         </TouchableOpacity>
-      </Animated.View>
+      </View>
   )}
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     backgroundColor: yellowLight,
-    borderRadius: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: green,
+    borderTopWidth: 2,
+    borderTopColor: green,
     margin: 20,
   },
   listItem: {
@@ -86,6 +77,12 @@ const styles = StyleSheet.create({
     fontSize:20,
     color: grey,
     margin: 40,
+  },
+  textSmall: {
+    fontSize:12,
+    color: grey,
+    margin: 40,
+    textDecorationLine: "underline",
   },
 })
 

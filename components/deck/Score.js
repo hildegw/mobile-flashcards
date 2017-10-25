@@ -5,16 +5,19 @@ import { green, greenLight, greenBack, white, grey, yellowLight } from '../../ut
 
 class Score extends Component {
 
+  //TODO something nice to show
+
+
   render () {
     const deviceWidth = Dimensions.get('window').width
     const { score, numberOfQuestions } = this.props
-    const percentScore = (score !== undefined) ? score/numberOfQuestions*100 : 0
+    const percentScore = (score !== undefined) ? Math.round(score/numberOfQuestions*100) : 0
 
     return (
       <View style={[styles.container, {width: deviceWidth-40}]}>
         <View style={styles.textButton}>
           <Text style={styles.textButtonText} >
-            {percentScore}
+            {percentScore} %
           </Text>
         </View>
       </View>

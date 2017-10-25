@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList } from 'react-native'
-//import { Ionicons } from '@expo/vector-icons'
 import DeckEntry from './DeckEntry'
 import { getAllDecks } from '../../utils/cardApi'
 import { setStartData, dataSelectDeckTitles } from '../../utils/_cardData'

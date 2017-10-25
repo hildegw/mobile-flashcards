@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { grey, greyLight, yellowLight, white, green, orange } from '../../utils/colors'
+import { grey, greyLight, yellowLight, white, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import Score from './Score'
 import TextButton from './TextButton'

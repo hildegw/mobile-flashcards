@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { grey, greenBack, yellowDark, yellowLight, green, orangeLight, greenLight, orange } from '../../utils/colors'
+import { grey, greenBack, yellowDark, yellowLight, green, orangeLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import SelectButton from './SelectButton'
 import Indicator from './Indicator'
@@ -95,7 +95,7 @@ class CardList extends Component {
             />
           )}
           keyExtractor={(item, index) => index}
-          showsHorizontalScrollIndicator={true}
+          showsHorizontalScrollIndicator={false}
           horizontal={true}
           pagingEnabled={true}
           onViewableItemsChanged={this.onViewableItemsChanged}
@@ -114,13 +114,13 @@ class CardList extends Component {
               <SelectButton
                 onPress={() => this.onPress('correct')}
                 children={' Correct '}
-                style={[cardAnsweredCorrectly && ({borderColor: green}, {backgroundColor: yellowDark})]} >
+                style={[cardAnsweredCorrectly && ({backgroundColor: greenBack})]} >
               </SelectButton>
 
               <SelectButton
                 onPress={() => this.onPress('incorrect')}
                 children={'Incorrect'}
-                style={[{borderColor: orangeLight}, !cardAnsweredCorrectly && ({borderColor: orange}, {backgroundColor: yellowDark})]} >
+                style={[{borderColor: orange}, !cardAnsweredCorrectly && ({backgroundColor: orangeLight})]} >
               </SelectButton>
             </View>
           </View>
@@ -135,10 +135,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: greenBack,
+    backgroundColor: yellowLight,
   },
   buttonsInRow:{
-    marginBottom: 40,
+    marginBottom: 60,
     flexDirection: 'row',
   }
 })
