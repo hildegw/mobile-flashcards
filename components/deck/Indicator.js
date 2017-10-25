@@ -1,34 +1,47 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
-import { green, white, grey, yellowLight } from '../../utils/colors'
+import { Text, View, StyleSheet, FlatList } from 'react-native'
+import { green, white, grey, greenLight } from '../../utils/colors'
 
 export default function Indicator ({ numberOfQuestions, index }) {
+
+  let helpArray = Array.from(Array(numberOfQuestions).keys())
+  //const helpArray2 = helpArray.map((item) => { key: item})
+  //console.log('helpArray2', helpArray2)
+
+  //JSX:  {index+1} / {numberOfQuestions}
+
+
+
   return (
-    <View style={styles.textButton}>
-      <Text style={styles.textButtonText} >
-        {index+1} / {numberOfQuestions}
-      </Text>
+    <View style={styles.container} >
+      {helpArray.map((item) =>
+        <View
+          style={[styles.miniButton, (item === index) && ({backgroundColor: greenLight})]}
+          key={item} >
+        </View>)}
+
+        <View
+          style={[styles.miniButton, (index === -1) && ({backgroundColor: greenLight})]} >
+        </View>
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  textButton: {
-    backgroundColor: yellowLight,
-    padding: 20,
-    paddingTop: 0,
-    paddingBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: green,
+  container: {
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    overflow: 'scroll',
+
   },
-  textButtonText: {
-    color: grey,
-    fontSize: 16,
-    textAlign: 'center',
-    fontWeight: 'bold',
-},
+  miniButton: {
+    margin: 5,
+    width: 12,
+    height: 12,
+    backgroundColor: green,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
 })
