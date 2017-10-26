@@ -73,8 +73,6 @@ class CardList extends Component {
 
   onPressIndicator () {
     this.refs.flatList.scrollToEnd()
-
-    console.log('onPressIndicator')
   }
 
   renderScore = () => {
@@ -138,26 +136,24 @@ class CardList extends Component {
         </Indicator>
 
         {(selectedCard.index > -1)
-          ?
-          <View>
-            <View style={styles.buttonsInRow} >
-              <SelectButton
-                onPress={() => this.onPressButton('correct')}
-                children={' Correct '}
-                style={[cardAnsweredCorrectly && ({backgroundColor: greenBack})]} >
-              </SelectButton>
+          ?   <View>
+                <View style={styles.buttonsInRow} >
+                  <SelectButton
+                    onPress={() => this.onPressButton('correct')}
+                    children={' Correct '}
+                    style={[cardAnsweredCorrectly && ({backgroundColor: greenBack})]} >
+                  </SelectButton>
 
-              <SelectButton
-                onPress={() => this.onPressButton('incorrect')}
-                children={'Incorrect'}
-                style={[{borderColor: orange}, !cardAnsweredCorrectly && ({backgroundColor: orangeLight})]} >
-              </SelectButton>
-            </View>
-          </View>
-          :
-          <View style={styles.buttonsInRow} >
-            <SelectButton  style={[{borderColor: yellowLight}, {marginBottom: 8}]} />
-          </View>
+                  <SelectButton
+                    onPress={() => this.onPressButton('incorrect')}
+                    children={'Incorrect'}
+                    style={[{borderColor: orange}, !cardAnsweredCorrectly && ({backgroundColor: orangeLight})]} >
+                  </SelectButton>
+                </View>
+              </View>
+          :   <View style={styles.buttonsInRow} >
+                <SelectButton  style={[{borderColor: yellowLight}, {marginBottom: 8}]} />
+              </View>
         }
 
       </View>

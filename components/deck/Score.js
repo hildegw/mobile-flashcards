@@ -5,9 +5,6 @@ import { green, greenLight, greenBack, white, grey, yellowLight } from '../../ut
 
 class Score extends Component {
 
-  //TODO something nice to show
-
-
   render () {
     const deviceWidth = Dimensions.get('window').width
     const { score, numberOfQuestions } = this.props

@@ -5,6 +5,7 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import deckList from './components/deckList/deckListReducer'
 import selectedCard from './components/deck/selectCardReducer'
+import addCard from './components/deck/addCardReducer'
 import score from './components/deck/scoreReducer'
 import Deck from './components/deck/Deck'
 import CardList from './components/deck/CardList'
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   deckList,
   selectedCard,
   score,
+  addCard,
 })
 
 function AppStatusBar ({backgroundColor, ...props}) {

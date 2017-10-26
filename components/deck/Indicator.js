@@ -1,18 +1,13 @@
 import React from 'react'
-import { Text, View, StyleSheet, FlatList, Dimensions, TouchableOpacity } from 'react-native'
-import { green, greenLight, orangeLight, grey, orange } from '../../utils/colors'
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import { green, greenLight, orange } from '../../utils/colors'
 
 export default function Indicator ({ numberOfQuestions, index, onPress }) {
 
   let helpArray = Array.from(Array(numberOfQuestions).keys())
-
-  //JSX:  {index+1} / {numberOfQuestions}
   const deviceWidth = Dimensions.get('window').width
-  console.log('Indicator, width', deviceWidth)
-  //device deviceWidth by 22 for max number of miniButtons
 
   return (
-
 
     <View style={styles.container} >
       {helpArray.map((item) =>

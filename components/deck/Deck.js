@@ -3,9 +3,11 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { grey, greyLight, yellowLight, white, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
+import { addCardToDeck } from '../../utils/cardApi'
 import Score from './Score'
 import SelectButton from './SelectButton'
 import { scoreCounter } from './scoreAction'
+import { addCard } from './addCardAction'
 
 class Deck extends Component {
 
@@ -19,9 +21,20 @@ class Deck extends Component {
     this.props.scoreCounter(0)
   }
 
-  onPressAddCard () {
-    console.log('presssssed add')
-    //TODO
+  onPressAddCard (title) {
+    console.log('onPressAddCard, in Deck: title', title)
+    const newCard = {
+      title: 'React',
+          questions: [
+            {
+              question: 'What is a Flatlist?',
+              answer: 'A scrollable list view based on react-native ListView'
+            },
+          ]
+        }
+    //open an edit modal and call action to add card
+    addCardToDeck ({ newCard, title })
+    //this.props.addCard(card)
   }
 
   render() {
@@ -49,7 +62,7 @@ class Deck extends Component {
 
         <View style={styles.buttonsInRow} >
           <SelectButton
-            onPress={this.onPressAddCard}
+            onPress={this.onPressAddCard(title)}
             children={'Add Card'}
           />
 
@@ -93,5 +106,5 @@ function mapStateToProps (state) {
 
 export default connect(
   mapStateToProps,
-  { scoreCounter }
+  { scoreCounter, addCard }
 )(Deck)
