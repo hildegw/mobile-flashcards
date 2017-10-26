@@ -4,10 +4,8 @@ import { connect } from 'react-redux'
 import { grey, greyLight, yellowLight, white, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import Score from './Score'
-import TextButton from './TextButton'
+import SelectButton from './SelectButton'
 import { scoreCounter } from './scoreAction'
-
-//TODO add old result as well
 
 class Deck extends Component {
 
@@ -47,16 +45,15 @@ class Deck extends Component {
               </Text>
         }
 
-        <Score numberOfQuestions={numberOfQuestions}>
-        </Score>
+        <Score numberOfQuestions={numberOfQuestions} />
 
         <View style={styles.buttonsInRow} >
-          <TextButton
+          <SelectButton
             onPress={this.onPressAddCard}
             children={'Add Card'}
           />
 
-          <TextButton
+          <SelectButton
             onPress={() => navigate(
               'CardList',
               { title: selectedDeck.title }
@@ -73,7 +70,7 @@ class Deck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: yellowLight,
     padding: 20,
@@ -86,6 +83,7 @@ const styles = StyleSheet.create({
   },
   buttonsInRow:{
     flexDirection: 'row',
+    margin: 40,
   }
 })
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, FlatList, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { grey, greenBack, yellowDark, yellowLight, green, orangeLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
@@ -72,9 +72,26 @@ class CardList extends Component {
   }
 
   renderScore = () => {
+    const deviceWidth = Dimensions.get('window').width
+    const { selectedDeck, numberOfQuestions } = this.state
     return (
-      <Score numberOfQuestions={this.state.numberOfQuestions}>
-      </Score>
+      <View style={[styles.scoreContainer, {width: deviceWidth-40}]}>
+        <Text style={[styles.text, {fontSize: 32}, {fontWeight: 'bold'}]} >
+          {selectedDeck.title}
+        </Text>
+        {numberOfQuestions === 1
+          ?   <Text style={styles.scoreActionext}>
+                {numberOfQuestions} card
+              </Text>
+          :   <Text style={styles.scoreText}>
+                {numberOfQuestions} cards
+              </Text>
+        }
+
+        <Score
+          numberOfQuestions={this.state.numberOfQuestions}>
+        </Score>
+      </View>
     )
   }
 
@@ -102,14 +119,15 @@ class CardList extends Component {
           ListFooterComponent={this.renderScore}
         />
 
-        {(selectedCard.index > -1) &&
-          <View>
-            <Indicator
-              key={selectedCard.index}
-              index={selectedCard.index}
-              numberOfQuestions={numberOfQuestions} >
-            </Indicator>
+        <Indicator
+          key={selectedCard.index}
+          index={selectedCard.index}
+          numberOfQuestions={numberOfQuestions} >
+        </Indicator>
 
+        {(selectedCard.index > -1)
+          ?
+          <View>
             <View style={styles.buttonsInRow} >
               <SelectButton
                 onPress={() => this.onPress('correct')}
@@ -123,6 +141,10 @@ class CardList extends Component {
                 style={[{borderColor: orange}, !cardAnsweredCorrectly && ({backgroundColor: orangeLight})]} >
               </SelectButton>
             </View>
+          </View>
+          :
+          <View style={styles.buttonsInRow} >
+            <SelectButton  style={[{borderColor: yellowLight}, {marginBottom: 8}]} />
           </View>
         }
 
@@ -140,7 +162,21 @@ const styles = StyleSheet.create({
   buttonsInRow:{
     marginBottom: 60,
     flexDirection: 'row',
-  }
+  },
+  scoreContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: yellowLight,
+    borderRadius: 20,
+    margin: 20,
+    paddingTop: 60,
+  },
+  scoreText: {
+    fontSize: 20,
+    color: grey,
+    paddingTop: 10,
+  },
 })
 
 function mapStateToProps (state) {

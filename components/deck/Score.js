@@ -15,8 +15,8 @@ class Score extends Component {
 
     return (
       <View style={[styles.container, {width: deviceWidth-40}]}>
-        <View style={styles.textButton}>
-          <Text style={styles.textButtonText} >
+        <View style={styles.indicator}>
+          <Text style={styles.indicatorText} >
             {percentScore} %
           </Text>
         </View>
@@ -26,36 +26,28 @@ class Score extends Component {
 }
 
 const styles = StyleSheet.create({
-  textButton: {
-    backgroundColor: greenLight,
-    padding: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    margin: 10,
-    borderRadius: 100,
-    borderWidth: 0,
-    borderColor: green,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textButtonText: {
-    color: grey,
-    fontSize: 16,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: greenBack,
+    justifyContent: 'center',
+    backgroundColor: yellowLight,
     borderRadius: 20,
     margin: 20,
   },
-  text: {
-    fontSize:20,
+  indicator: {
+    padding: 20,
+    margin: 50,
+    borderBottomWidth: 2,
+    borderBottomColor: green,
+    borderTopWidth: 2,
+    borderTopColor: green,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  indicatorText: {
     color: grey,
-    margin: 40,
+    fontSize: 32,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 })
 
