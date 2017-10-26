@@ -19,6 +19,66 @@ export function setStartData () {
           question: 'Which type of states does React support?',
           answer: 'React handles local states in parent states.'
         },
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        },
+        {
+          question: 'Which type of states does React support?',
+          answer: 'React handles local states in parent states.'
+        },
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        },
+        {
+          question: 'Which type of states does React support?',
+          answer: 'React handles local states in parent states.'
+        },
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        },
+        {
+          question: 'Which type of states does React support?',
+          answer: 'React handles local states in parent states.'
+        },
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        },
+        {
+          question: 'Which type of states does React support?',
+          answer: 'React handles local states in parent states.'
+        },
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        },
+        {
+          question: 'Which type of states does React support?',
+          answer: 'React handles local states in parent states.'
+        },
       ]
     },
     JavaScript: {

@@ -2,6 +2,8 @@ import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { green, white, grey, yellowLight } from '../../utils/colors'
 
+//TODO delete TextButton?
+
 export default function TextButton ({ children, onPress, style = {} }) {
   return (
     <TouchableOpacity

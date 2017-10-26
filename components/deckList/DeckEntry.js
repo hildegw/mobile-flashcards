@@ -7,7 +7,6 @@ export default class DeckEntry extends Component {
   onPress = () => {
     const { title, onPressItem, navigate } = this.props
     onPressItem(title, navigate)
-    //console.log('entry: ', this.props)
   }
 
   render () {
