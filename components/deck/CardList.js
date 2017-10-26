@@ -41,7 +41,7 @@ class CardList extends Component {
     this.setState({ correctAnswers: correctAnswers})
     //bind props to functions
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
-    this.onPress = this.onPress.bind(this)
+    this.onPressButton = this.onPressButton.bind(this)
     this.onViewableItemsChanged = this.onViewableItemsChanged.bind(this)
     //reset score counter in store
     this.props.scoreCounter(0)
@@ -55,7 +55,7 @@ class CardList extends Component {
     this.props.selectCard({index: viewableCardIndex})
   }
 
-  onPress (type) {
+  onPressButton (type) {
     //keep track of which questions were answered correctly, or not
     const { index } = this.props.selectedCard
     const { correctAnswers } = this.state
@@ -69,6 +69,12 @@ class CardList extends Component {
       const score = newAnswers.filter(answer => answer).length
       this.props.scoreCounter(score)
     }
+  }
+
+  onPressIndicator () {
+    this.refs.flatList.scrollToEnd()
+
+    console.log('onPressIndicator')
   }
 
   renderScore = () => {
@@ -100,11 +106,13 @@ class CardList extends Component {
     const { numberOfQuestions, selectedDeck } = this.state
     const { correctAnswers } = this.state
     const cardAnsweredCorrectly = correctAnswers[selectedCard.index]
+    const deviceWidth = Dimensions.get('window').width
 
     return (
       <View style={styles.container} >
         <FlatList
           data = {selectedDeck.questions}
+          ref='flatList'
           renderItem = {(({item}) =>
             <Card
               question={item.question}
@@ -117,11 +125,15 @@ class CardList extends Component {
           pagingEnabled={true}
           onViewableItemsChanged={this.onViewableItemsChanged}
           ListFooterComponent={this.renderScore}
+          getItemLayout={(data, index) => (
+            {length: deviceWidth, offset: deviceWidth * index, index}
+          )}
         />
 
         <Indicator
           key={selectedCard.index}
           index={selectedCard.index}
+          onPress={() => this.onPressIndicator()}
           numberOfQuestions={numberOfQuestions} >
         </Indicator>
 
@@ -130,13 +142,13 @@ class CardList extends Component {
           <View>
             <View style={styles.buttonsInRow} >
               <SelectButton
-                onPress={() => this.onPress('correct')}
+                onPress={() => this.onPressButton('correct')}
                 children={' Correct '}
                 style={[cardAnsweredCorrectly && ({backgroundColor: greenBack})]} >
               </SelectButton>
 
               <SelectButton
-                onPress={() => this.onPress('incorrect')}
+                onPress={() => this.onPressButton('incorrect')}
                 children={'Incorrect'}
                 style={[{borderColor: orange}, !cardAnsweredCorrectly && ({backgroundColor: orangeLight})]} >
               </SelectButton>
