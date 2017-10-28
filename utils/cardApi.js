@@ -18,9 +18,10 @@ export function getAllDecks () {
 }
 
 export function addCardToDeck ({ newCard, title }) {
-  return AsyncStorage.mergeItem(CARD_DATA_STORAGE, JSON.stringify(
-    title['questions'].push(newCard)
-  ))
+  const stringifiedCard = JSON.stringify('newCard')
+  console.log('api card, title', newCard)
+  return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify('newCard'))
+
 }
 
 export function saveDeckTitle ({ newTitle, allDecks }) {

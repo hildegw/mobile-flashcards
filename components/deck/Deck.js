@@ -3,11 +3,11 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { grey, greyLight, yellowLight, white, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
-import { addCardToDeck } from '../../utils/cardApi'
+import { addCardToDeck, getAllDecks } from '../../utils/cardApi'
 import Score from './Score'
 import SelectButton from './SelectButton'
 import { scoreCounter } from './scoreAction'
-import { addCard } from './addCardAction'
+import { addCard, allDecks } from './addCardAction'
 
 class Deck extends Component {
 
@@ -23,18 +23,27 @@ class Deck extends Component {
 
   onPressAddCard (title) {
     console.log('onPressAddCard, in Deck: title', title)
-    const newCard = {
-      title: 'React',
-          questions: [
+    const newCard =
+    { startData:
+      { React: {
+        title: 'React',
+        questions: [
             {
               question: 'What is a Flatlist?',
               answer: 'A scrollable list view based on react-native ListView'
             },
           ]
-        }
+      }}}
     //open an edit modal and call action to add card
-    addCardToDeck ({ newCard, title })
-    //this.props.addCard(card)
+    //mergeItem does not work, so adding the updated data
+    //TODO: update DB with new allDecks object, then call allDecks action
+    const result = addCardToDeck ({ newCard, title })
+      .then(
+        getAllDecks().then((result) => {
+          const { startData } = result
+          this.props.allDecks({startData: startData})
+        })
+      )
   }
 
   render() {
@@ -62,7 +71,7 @@ class Deck extends Component {
 
         <View style={styles.buttonsInRow} >
           <SelectButton
-            onPress={this.onPressAddCard(title)}
+            onPress={() => this.onPressAddCard(title)}
             children={'Add Card'}
           />
 
@@ -101,10 +110,11 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
+  //const { decklist, allDecks } = state
   return state.deckList
 }
 
 export default connect(
   mapStateToProps,
-  { scoreCounter, addCard }
+  { scoreCounter, addCard, allDecks }
 )(Deck)
