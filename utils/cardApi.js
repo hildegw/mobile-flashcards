@@ -12,13 +12,13 @@ export function getAllDecks () {
   return AsyncStorage.getItem(CARD_DATA_STORAGE)
     .then((data) => {
       const parsedData = JSON.parse(data)
-      console.log('cardAPI getAllDecks:', parsedData)
       return parsedData
     })
 }
 
 export function addCardToDeck ({ question, title, startData }) {
-  console.log('api card, qyestuib', question)
+  //need to use setItem to add a card, mergeItem is not working with iOS
+  //adding question incl. answer to existing deck list dataset
   return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
       ...startData,
       [title]: {
@@ -31,10 +31,13 @@ export function addCardToDeck ({ question, title, startData }) {
     }))
 }
 
-export function saveDeckTitle ({ newTitle, allDecks }) {
+export function saveDeckTitle ({ title, startData }) {
   //spread existing data and add new title
-  return AsyncStorage.setItem(CARD_DATA_STORAGE_KEY, JSON.stringify({
-    ...allDecks,
-    title: title
+  return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
+    ...startData,
+    [title]: {
+      questions: [],
+      title: title,
+    }
   }))
 }

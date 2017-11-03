@@ -8,7 +8,10 @@ class Score extends Component {
   render () {
     const deviceWidth = Dimensions.get('window').width
     const { score, numberOfQuestions } = this.props
-    const percentScore = (score !== undefined) ? Math.round(score/numberOfQuestions*100) : 0
+    console.log('score', score, numberOfQuestions)
+    const percentScore = (score === undefined || score ===0 || numberOfQuestions === 0)
+      ? 0
+      : Math.round(score/numberOfQuestions*100)
 
     return (
       <View style={[styles.container, {width: deviceWidth-40}]}>

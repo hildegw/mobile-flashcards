@@ -7,7 +7,6 @@ import { addCardToDeck, getAllDecks } from '../../utils/cardApi'
 import Score from './Score'
 import SelectButton from './SelectButton'
 import { scoreCounter } from './scoreAction'
-import { addCard } from './addCardAction'
 import { allDecks } from '../deckList/deckListAction'
 
 class Deck extends Component {
@@ -29,19 +28,16 @@ class Deck extends Component {
               answer: 'A scrollable list view based on react-native ListView'
             }
 
-    //open an edit modal and call action to add card
-    //mergeItem does not work, so adding the updated data
-    //TODO: update DB with new allDecks object, then call allDecks action
+    //TODO open an edit modal and call action to add card
+    
+    //AsyncStorage mergeItem is not working on iOS, therefore handing over
+    //original data set with all decks plus new questions to card API to setItem
     const { startData } = this.props
     const result = addCardToDeck ({ question, title, startData })
-    console.log('onPressAddCard: result', result)
-
+    //update startData state property
     getAllDecks().then((result) => {
-          //const { startData } = result
-          console.log('onPress,getAllDecks result', result)
           this.props.allDecks({startData: result})
         })
-
   }
 
   render() {
@@ -114,5 +110,5 @@ function mapStateToProps (state) {
 
 export default connect(
   mapStateToProps,
-  { scoreCounter, addCard, allDecks }
+  { scoreCounter, allDecks }
 )(Deck)
