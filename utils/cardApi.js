@@ -32,7 +32,7 @@ export function addCardToDeck ({ question, title, startData }) {
 }
 
 export function saveDeckTitle ({ title, startData }) {
-  //spread existing data and add new title
+  //use of setItem instead of mergeItem because of iOS issues
   return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
     ...startData,
     [title]: {

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions, Modal } from 'react-native'
 import DeckEntry from './DeckEntry'
 import { getAllDecks, saveDeckTitle } from '../../utils/cardApi'
 import { setStartData, dataSelectDeckTitles } from '../../utils/_cardData'
 import SelectButton from '../deck/SelectButton'
+import AddDeckModal from './AddDeckModal'
 import { connect } from 'react-redux'
 import { allDecks } from './deckListAction'
 import { yellowLight, white, orange } from '../../utils/colors'
@@ -30,7 +31,23 @@ class DeckList extends Component {
   }
 
 
-  onPressAddDeckTitle () {
+  onPressAddDeckTitle = () => {
+    console.log('onPressAddDeckTitle, pressed')
+
+    //TODO make modal visible, does not render when called here
+      return (
+        <View>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={true}
+            onRequestClose={() => {alert("Modal has been closed.")}}
+          />
+      </View>
+      )
+
+
+    /*
     const title = 'Udacity'
 
     //TODO open an edit modal and call action to add card
@@ -43,6 +60,7 @@ class DeckList extends Component {
     getAllDecks().then((result) => {
         this.props.allDecks({startData: result})
         })
+    */
   }
 
   renderAddDeckButton = () => {
