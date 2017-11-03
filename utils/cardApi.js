@@ -17,11 +17,16 @@ export function getAllDecks () {
     })
 }
 
-export function addCardToDeck ({ newCard, title }) {
-  const stringifiedCard = JSON.stringify('newCard')
-  console.log('api card, title', newCard)
-  return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify('newCard'))
+export function addCardToDeck ({ question, title, startData }) {
+  console.log('api card, qyestuib', question)
+  return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
+      ...startData,
+      [title]: [
+        ...startData[title]['questions'],
+        question,
+      ],
 
+    }))
 }
 
 export function saveDeckTitle ({ newTitle, allDecks }) {

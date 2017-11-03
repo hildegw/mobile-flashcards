@@ -7,7 +7,8 @@ import { addCardToDeck, getAllDecks } from '../../utils/cardApi'
 import Score from './Score'
 import SelectButton from './SelectButton'
 import { scoreCounter } from './scoreAction'
-import { addCard, allDecks } from './addCardAction'
+import { addCard } from './addCardAction'
+import { allDecks } from '../deckList/deckListAction'
 
 class Deck extends Component {
 
@@ -22,28 +23,25 @@ class Deck extends Component {
   }
 
   onPressAddCard (title) {
-    console.log('onPressAddCard, in Deck: title', title)
-    const newCard =
-    { startData:
-      { React: {
-        title: 'React',
-        questions: [
+    const question =
             {
               question: 'What is a Flatlist?',
               answer: 'A scrollable list view based on react-native ListView'
-            },
-          ]
-      }}}
+            }
+
     //open an edit modal and call action to add card
     //mergeItem does not work, so adding the updated data
     //TODO: update DB with new allDecks object, then call allDecks action
-    const result = addCardToDeck ({ newCard, title })
-      .then(
-        getAllDecks().then((result) => {
+    const { startData } = this.props
+    const result = addCardToDeck ({ question, title, startData })
+    console.log('onPressAddCard: result', result)
+
+    getAllDecks().then((result) => {
           const { startData } = result
-          this.props.allDecks({startData: startData})
+          console.log('onPress,getAllDecks result', result)
+          //this.props.allDecks({startData: startData})
         })
-      )
+
   }
 
   render() {
