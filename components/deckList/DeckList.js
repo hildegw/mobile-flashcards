@@ -17,6 +17,7 @@ class DeckList extends Component {
     const start = setStartData() //TODO remove, or load just once
     getAllDecks().then((result) => {
       const { startData } = result
+      console.log('Decklist startData', startData)
       this.props.allDecks({startData: startData})
     })
   }

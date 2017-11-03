@@ -37,9 +37,9 @@ class Deck extends Component {
     console.log('onPressAddCard: result', result)
 
     getAllDecks().then((result) => {
-          const { startData } = result
+          //const { startData } = result
           console.log('onPress,getAllDecks result', result)
-          //this.props.allDecks({startData: startData})
+          this.props.allDecks({startData: result})
         })
 
   }

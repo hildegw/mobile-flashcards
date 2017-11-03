@@ -21,11 +21,13 @@ export function addCardToDeck ({ question, title, startData }) {
   console.log('api card, qyestuib', question)
   return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
       ...startData,
-      [title]: [
+      [title]: {
+        ['questions']: [
         ...startData[title]['questions'],
         question,
       ],
-
+      title: title,
+    },
     }))
 }
 
