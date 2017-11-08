@@ -12,7 +12,7 @@ import { yellowLight, white, orange } from '../../utils/colors'
 
 class DeckList extends Component {
 
-  state = {open: false, offset: 0}
+  state = {open: false}
 
   static navigationOptions = ({ navigation }) => {
     return { title: 'Mobile Flashcards' }
@@ -36,16 +36,8 @@ class DeckList extends Component {
 //TODO call from render via onPress={() => this.onPressAddDeckTitle()}
   onPressAddDeckTitle = () => {
     console.log('onPressAddDeckTitle, pressed')
+    this.setState({open: false})
 
-    //TODO make modal visible, does not render when called here
-      return (
-        <View>
-
-      </View>
-      )
-
-
-    /*
     const title = 'Udacity'
 
     //TODO open an edit modal and call action to add card
@@ -58,7 +50,7 @@ class DeckList extends Component {
     getAllDecks().then((result) => {
         this.props.allDecks({startData: result})
         })
-    */
+
   }
 
   renderAddDeckButton = () => {
@@ -72,7 +64,6 @@ class DeckList extends Component {
         />
 
         <Modal
-          offset={this.state.offset}
           open={this.state.open}
           modalDidOpen={() => console.log('modal did open')}
           modalDidClose={() => this.setState({open: false})}
@@ -81,8 +72,8 @@ class DeckList extends Component {
             <Text style={{fontSize: 20, marginBottom: 10}}>Hello world!</Text>
             <TouchableOpacity
             style={{margin: 5}}
-            onPress={() => this.setState({offset: -100})}>
-              <Text>Move modal up</Text>
+            onPress={() => this.onPressAddDeckTitle()} >
+              <Text>Add Deck</Text>
             </TouchableOpacity>
           </View>
         </Modal>
