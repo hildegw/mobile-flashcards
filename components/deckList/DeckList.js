@@ -65,15 +65,25 @@ class DeckList extends Component {
       <View style={styles.button}>
         <SelectButton
           onPress={() => this.setState({open: true})}
-          children={'New Deck'}
+          children={'Add Deck'}
           style={[{borderColor: orange}]}
         />
 
         <Modal
           open={this.state.open}
-          modalDidOpen={() => console.log('modal did open')}
+          overlayBackground={'#F5F5F5'}
           modalDidClose={() => this.setState({open: false})}
-          style={{alignItems: 'center'}}>
+          style={{alignItems: 'center'}}
+          containerStyle={{
+        	   justifyContent: 'flex-start'
+        	}}
+        	modalStyle={{
+        	   borderRadius: 2,
+        	   margin: 0,
+        	   padding: 20,
+        	   backgroundColor: '#F5F5F5'
+        	}}
+          >
           <View>
 
             <TextInput
@@ -86,13 +96,14 @@ class DeckList extends Component {
               selectTextOnFocus={true}
             />
 
-
-            <Text style={{fontSize: 20, marginBottom: 10}}>Hello world!</Text>
-            {!error && <TouchableOpacity
-              style={{margin: 5}}
-              onPress={() => this.onPressAddDeckTitle()} >
-              <Text>Add Deck</Text>
-            </TouchableOpacity>}
+            {!error
+              ? <TouchableOpacity
+                  style={{margin: 10}}
+                  onPress={() => this.onPressAddDeckTitle()} >
+                  <Text>Add Deck</Text>
+                </TouchableOpacity>
+              : <Text style={{margin: 10}} >Enter a Deck Name</Text>
+            }
           </View>
         </Modal>
 
