@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions } from 'react-native'
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions } from 'react-native'
 import Modal from 'react-native-simple-modal';
 import DeckEntry from './DeckEntry'
 import { getAllDecks, saveDeckTitle } from '../../utils/cardApi'
@@ -12,7 +12,7 @@ import { yellowLight, white, orange } from '../../utils/colors'
 
 class DeckList extends Component {
 
-  state = {open: false}
+  state = {open: false, deckName: ''}
 
   static navigationOptions = ({ navigation }) => {
     return { title: 'Mobile Flashcards' }
@@ -33,12 +33,11 @@ class DeckList extends Component {
     )
   }
 
-//TODO call from render via onPress={() => this.onPressAddDeckTitle()}
   onPressAddDeckTitle = () => {
-    console.log('onPressAddDeckTitle, pressed')
+    console.log('onPressAddDeckTitle, text', this.state.text)
     this.setState({open: false})
 
-    const title = 'Udacity'
+    const title = this.state.deckName
 
     //TODO open an edit modal and call action to add card
 
@@ -53,8 +52,15 @@ class DeckList extends Component {
 
   }
 
+  validate = (text) => {
+    const letterNumber = /^[a-z\d\-_\s]+$/i
+    return text.length === 0 || !text.match(letterNumber)
+  }
+
   renderAddDeckButton = () => {
     const deviceWidth = Dimensions.get('window').width
+    const error = this.validate(this.state.deckName)
+
     return (
       <View style={styles.button}>
         <SelectButton
@@ -69,12 +75,24 @@ class DeckList extends Component {
           modalDidClose={() => this.setState({open: false})}
           style={{alignItems: 'center'}}>
           <View>
+
+            <TextInput
+              style={{height: 40, borderColor: 'gray', borderWidth: 1, padding: 5}}
+              onChangeText={(value) => this.setState({deckName: value.trim()})}
+              autoFocus={true}
+              autoCapitalize={'words'}
+              maxLength={50}
+              placeholder={'New Deck Title (alpha-numeric only)'}
+              selectTextOnFocus={true}
+            />
+
+
             <Text style={{fontSize: 20, marginBottom: 10}}>Hello world!</Text>
-            <TouchableOpacity
-            style={{margin: 5}}
-            onPress={() => this.onPressAddDeckTitle()} >
+            {!error && <TouchableOpacity
+              style={{margin: 5}}
+              onPress={() => this.onPressAddDeckTitle()} >
               <Text>Add Deck</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </Modal>
 
