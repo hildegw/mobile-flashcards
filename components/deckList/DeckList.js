@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions, Modal } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions } from 'react-native'
+import Modal from 'react-native-simple-modal';
 import DeckEntry from './DeckEntry'
 import { getAllDecks, saveDeckTitle } from '../../utils/cardApi'
 import { setStartData, dataSelectDeckTitles } from '../../utils/_cardData'
@@ -10,6 +11,8 @@ import { allDecks } from './deckListAction'
 import { yellowLight, white, orange } from '../../utils/colors'
 
 class DeckList extends Component {
+
+  state = {open: false, offset: 0}
 
   static navigationOptions = ({ navigation }) => {
     return { title: 'Mobile Flashcards' }
@@ -30,19 +33,14 @@ class DeckList extends Component {
     )
   }
 
-
+//TODO call from render via onPress={() => this.onPressAddDeckTitle()}
   onPressAddDeckTitle = () => {
     console.log('onPressAddDeckTitle, pressed')
 
     //TODO make modal visible, does not render when called here
       return (
         <View>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={true}
-            onRequestClose={() => {alert("Modal has been closed.")}}
-          />
+
       </View>
       )
 
@@ -68,10 +66,27 @@ class DeckList extends Component {
     return (
       <View style={styles.button}>
         <SelectButton
-          onPress={() => this.onPressAddDeckTitle()}
+          onPress={() => this.setState({open: true})}
           children={'New Deck'}
           style={[{borderColor: orange}]}
         />
+
+        <Modal
+          offset={this.state.offset}
+          open={this.state.open}
+          modalDidOpen={() => console.log('modal did open')}
+          modalDidClose={() => this.setState({open: false})}
+          style={{alignItems: 'center'}}>
+          <View>
+            <Text style={{fontSize: 20, marginBottom: 10}}>Hello world!</Text>
+            <TouchableOpacity
+            style={{margin: 5}}
+            onPress={() => this.setState({offset: -100})}>
+              <Text>Move modal up</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
       </View>
     )
   }
