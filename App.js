@@ -6,9 +6,10 @@ import { Provider } from 'react-redux'
 import deckList from './components/deckList/deckListReducer'
 import selectedCard from './components/deck/selectCardReducer'
 import score from './components/deck/scoreReducer'
+import AddDeckTitle from './components/deckList/AddDeckTitle'
 import Deck from './components/deck/Deck'
 import CardList from './components/deck/CardList'
-import { green, white } from './utils/colors'
+import { green, white, orange, yellowLight } from './utils/colors'
 import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 
@@ -27,34 +28,24 @@ function AppStatusBar ({backgroundColor, ...props}) {
 }
 
 const MainNavigator = StackNavigator({
-  Home: {
-    screen: DeckList,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: green,
-      }
-    },
-  },
-  Deck: {
-    screen: Deck,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: green,
-      }
-    }
-  },
+  Home: { screen: DeckList, cardStyle: {backgroundColor: yellowLight} },
+  Deck: { screen: Deck },
+  AddDeckTitle: { screen: AddDeckTitle },
   CardList: {
     screen: CardList,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: green,
+    mode: 'modal',
+    cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
       }
     }
-  }
-})
+  }, {
+  navigationOptions: {
+      headerTintColor: white,
+      headerStyle: { backgroundColor: green },
+    },
+  },
+)
 
 export default class App extends React.Component {
 
