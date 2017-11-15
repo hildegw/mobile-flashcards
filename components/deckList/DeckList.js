@@ -30,8 +30,6 @@ class DeckList extends Component {
   }
 
   renderAddDeckButton = () => {
-    const deviceWidth = Dimensions.get('window').width
-
     return (
       <View style={styles.button}>
         <SelectButton
