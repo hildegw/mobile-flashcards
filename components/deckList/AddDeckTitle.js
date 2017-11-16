@@ -14,10 +14,7 @@ class AddDeckTitle extends Component {
     return { title: 'Add a new Deck'}
   }
 
-  onPressAddDeckTitle = () => {
-    console.log('onPressAddDeckTitle, title', title)
-    //this.refs.flatList.scrollToEnd()
-    const { title } = this.props
+  onPressAddDeckTitle = (title) => {
     //AsyncStorage mergeItem is not working on iOS, therefore handing over
     //original data set with all decks plus new questions to card API to setItem
     const { startData } = this.props

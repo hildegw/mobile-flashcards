@@ -12,7 +12,8 @@ class DeckInputForm extends Component {
   }
 
 handleSubmit = () => {
- title = this.state
+ title = this.state.deckName
+ this.props.onPress(title)
 }
 
   render () {
