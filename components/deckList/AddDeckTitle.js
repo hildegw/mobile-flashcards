@@ -12,31 +12,24 @@ class AddDeckTitle extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
-    return { title: title}
+    return { title: title }
   }
 
   validate = (text) => {
     return text.length < 3
   }
 
-//TODO: combine onPressAddCard and onPressAddDeckTitle, just one button
+//TODO: call either addCard or addDeck in cardAPI, depending on which button was pressed
   onPressAddCard = () => {
-    /*const question =
-            {
-              question: 'What is a Flatlist?',
-              answer: 'A scrollable list view based on react-native ListView'
-            }
-            */
-    //TODO open an edit modal and call action to add card
-
     //AsyncStorage mergeItem is not working on iOS, therefore handing over
     //original data set with all decks plus new questions to card API to setItem
+    const { title } = this.props.navigation.state.params //TODO decide if deck is selected or new
+    this.setState({ deckTitle: title })
     const { startData } = this.props
     const { deckTitle, question, answer } = this.state
     const card = { question: question, answer: answer }
-    console.log('onPressAddCard, startD', startData)
-    let result = addCardToDeck ({ card, deckTitle, startData })
-    //let result = saveDeckTitle ({ deckTitle, startData })
+    console.log('onPressAddCard, startD')
+    const result = addCardToDeck ({ card, deckTitle, startData })
     //update startData state property
     getAllDecks().then((result) => {
         this.props.allDecks({startData: result})
