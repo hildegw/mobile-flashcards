@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { grey, greyLight, yellowLight, white, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
-import { addCardToDeck, getAllDecks } from '../../utils/cardApi'
 import Score from './Score'
 import SelectButton from './SelectButton'
 import { scoreCounter } from './scoreAction'
@@ -19,25 +18,6 @@ class Deck extends Component {
   componentDidMount() {
     //reset score counter in store
     this.props.scoreCounter(0)
-  }
-
-  onPressAddCard (title) {
-    const question =
-            {
-              question: 'What is a Flatlist?',
-              answer: 'A scrollable list view based on react-native ListView'
-            }
-
-    //TODO open an edit modal and call action to add card
-    
-    //AsyncStorage mergeItem is not working on iOS, therefore handing over
-    //original data set with all decks plus new questions to card API to setItem
-    const { startData } = this.props
-    const result = addCardToDeck ({ question, title, startData })
-    //update startData state property
-    getAllDecks().then((result) => {
-          this.props.allDecks({startData: result})
-        })
   }
 
   render() {
@@ -65,8 +45,9 @@ class Deck extends Component {
 
         <View style={styles.buttonsInRow} >
           <SelectButton
-            onPress={() => this.onPressAddCard(title)}
+            onPress={() => this.props.navigation.navigate('AddDeckTitle', {title: 'Add a new Card'})}
             children={'Add Card'}
+            deckTitle={title}
           />
 
           <SelectButton

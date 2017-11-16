@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, TextInput, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions } from 'react-native'
 import DeckEntry from './DeckEntry'
-import { getAllDecks, saveDeckTitle } from '../../utils/cardApi'
+import { getAllDecks } from '../../utils/cardApi'
 import { setStartData, dataSelectDeckTitles } from '../../utils/_cardData'
 import SelectButton from '../deck/SelectButton'
 import { connect } from 'react-redux'
@@ -33,7 +33,7 @@ class DeckList extends Component {
     return (
       <View style={styles.button}>
         <SelectButton
-          onPress={() => this.props.navigation.navigate('AddDeckTitle', {name: 'Add a new Deck'})}
+          onPress={() => this.props.navigation.navigate('AddDeckTitle', {title: 'Add a new Deck'})}
           children={'Add Deck'}
           style={[{borderColor: orange}]}
         />

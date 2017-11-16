@@ -22,7 +22,7 @@ export function addCardToDeck ({ question, title, startData }) {
   return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
       ...startData,
       [title]: {
-        ['questions']: [
+        questions: [
         ...startData[title]['questions'],
         question,
       ],
