@@ -8,7 +8,7 @@ import SelectButton from '../deck/SelectButton'
 
 class AddDeckTitle extends Component {
 
-  state = { value: ' ' }
+  state = { deckTitle: ' ', question: ' ', answer: ' ' }
 
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
@@ -21,24 +21,26 @@ class AddDeckTitle extends Component {
 
 //TODO: combine onPressAddCard and onPressAddDeckTitle, just one button
   onPressAddCard = () => {
-    console.log('onPressAddCard, title-value', title)
-    const question =
+    /*const question =
             {
               question: 'What is a Flatlist?',
               answer: 'A scrollable list view based on react-native ListView'
             }
-
+            */
     //TODO open an edit modal and call action to add card
 
     //AsyncStorage mergeItem is not working on iOS, therefore handing over
     //original data set with all decks plus new questions to card API to setItem
     const { startData } = this.props
-    const title = this.state.value
-    //let result = addCardToDeck ({ question, title, startData })
-    let result = saveDeckTitle ({ title, startData })
+    const { deckTitle, question, answer } = this.state
+    const card = { question: question, answer: answer }
+    console.log('onPressAddCard, startD', startData)
+    let result = addCardToDeck ({ card, deckTitle, startData })
+    //let result = saveDeckTitle ({ deckTitle, startData })
     //update startData state property
     getAllDecks().then((result) => {
         this.props.allDecks({startData: result})
+        console.log('updated Decks in AddDeckTitle: ', result)
         })
     this.props.navigation.goBack()
   }
@@ -48,14 +50,14 @@ class AddDeckTitle extends Component {
 
   render() {
     const deviceWidth = Dimensions.get('window').width
-    const inputError = this.validate(this.state.value)
+    const inputError = this.validate(this.state.deckTitle)
 
     return (
       <View style={styles.container}>
 
         <TextInput
           style={[styles.textInput, {width: deviceWidth-40}]}
-          onChangeText={(value) => this.setState({value: value.trim()})}
+          onChangeText={(value) => this.setState({deckTitle: value.trim()})}
           autoFocus={true}
           autoCapitalize={'words'}
           maxLength={50}
@@ -67,7 +69,7 @@ class AddDeckTitle extends Component {
 
         <TextInput
           style={[styles.textInput, {width: deviceWidth-40}]}
-          onChangeText={(value) => this.setState({value: value.trim()})}
+          onChangeText={(value) => this.setState({question: value.trim()})}
           autoFocus={true}
           autoCapitalize={'words'}
           maxLength={50}
@@ -79,7 +81,7 @@ class AddDeckTitle extends Component {
 
         <TextInput
           style={[styles.textInput, {width: deviceWidth-40}]}
-          onChangeText={(value) => this.setState({value: value.trim()})}
+          onChangeText={(value) => this.setState({answer: value.trim()})}
           autoFocus={true}
           autoCapitalize={'words'}
           maxLength={50}
