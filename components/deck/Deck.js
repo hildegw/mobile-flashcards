@@ -45,7 +45,7 @@ class Deck extends Component {
 
         <View style={styles.buttonsInRow} >
           <SelectButton
-            onPress={() => this.props.navigation.navigate('AddDeckTitle', {title: 'Add a new Card'})}
+            onPress={() => this.props.navigation.navigate('AddDeckTitle', {title: title})}
             children={'Add Card'}
           />
 

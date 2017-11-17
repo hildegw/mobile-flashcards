@@ -7,6 +7,7 @@ import { allDecks } from './deckListAction'
 import SelectButton from '../deck/SelectButton'
 
 const ADD_DECK = 'Add a new Deck'
+const ADD_CARD = 'Add a new Card'
 
 class AddDeckTitle extends Component {
 
@@ -18,13 +19,12 @@ class AddDeckTitle extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
-    return { title: title }
+    return title === ADD_DECK ? { title: title } : { title: ADD_CARD}
   }
 
   componentDidMount () {
     const { title } = this.props.navigation.state.params
     if (title !== ADD_DECK) this.setState({ deckTitle: title })
-    //TODO get deck title from navigation! Again!
   }
 
   onPressAddCard = () => {
@@ -42,9 +42,7 @@ class AddDeckTitle extends Component {
     this.props.navigation.goBack()
   }
 
-//TODO: prepopulate fields if available - make a list of available decks
-//TODO: add another button to add more
-//TODO: check for unknown deck title when calling "addCard"
+//TODO: empty fields handling
 
   render() {
     const deviceWidth = Dimensions.get('window').width
