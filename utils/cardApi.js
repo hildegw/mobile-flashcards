@@ -18,24 +18,20 @@ export function getAllDecks () {
 
 //TODO how to add to existing deck, call from Deck
 export function addCardToDeck ({ card, deckTitle, startData }) {
-  console.log('API card for deck:', deckTitle)
+  console.log('API add card:', card)
   //need to use setItem to add a card, mergeItem is not working with iOS
   //adding question incl. answer to existing deck list dataset
   return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
       ...startData,
       [deckTitle]: {
         ...startData[deckTitle],
-        ['questions']: {
-          ...startData[deckTitle]['questions'], card
         },
         title: deckTitle,
-        }
     }))
 }
 
-//TODO call from home page
 export function addNewDeck ({ card, deckTitle, startData }) {
-  console.log('API card for deck:')
+  console.log('API add new:', card)
   //need to use setItem to add a card, mergeItem is not working with iOS
   //adding question incl. answer to existing deck list dataset
   return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import { getAllDecks, saveDeckTitle, addCardToDeck } from '../../utils/cardApi'
+import { getAllDecks, addNewDeck, addCardToDeck } from '../../utils/cardApi'
 import { grey, greyLight, yellowLight, white, orange } from '../../utils/colors'
 import { allDecks } from './deckListAction'
 import SelectButton from '../deck/SelectButton'
@@ -19,17 +19,15 @@ class AddDeckTitle extends Component {
     return text.length < 3
   }
 
-//TODO: call either addCard or addDeck in cardAPI, depending on which button was pressed
   onPressAddCard = () => {
-    //AsyncStorage mergeItem is not working on iOS, therefore handing over
-    //original data set with all decks plus new questions to card API to setItem
+    /* AsyncStorage mergeItem is not working on iOS, therefore handing over
+      original data set with all decks plus new questions to card API to setItem */
     const { title } = this.props.navigation.state.params //TODO decide if deck is selected or new
     this.setState({ deckTitle: title })
     const { startData } = this.props
     const { deckTitle, question, answer } = this.state
     const card = { question: question, answer: answer }
-    console.log('onPressAddCard, startD')
-    const result = addCardToDeck ({ card, deckTitle, startData })
+    title === 'Add a new Deck' ? addNewDeck ({ card, deckTitle, startData}) : addCardToDeck ({ card, deckTitle, startData })
     //update startData state property
     getAllDecks().then((result) => {
         this.props.allDecks({startData: result})
@@ -38,8 +36,8 @@ class AddDeckTitle extends Component {
     this.props.navigation.goBack()
   }
 
-//TODO: set state with all three values and add to database
-//TODO: prepopulate fields if available
+//TODO: prepopulate fields if available - make a list of available decks
+//TODO: add another button to add more
 
   render() {
     const deviceWidth = Dimensions.get('window').width
