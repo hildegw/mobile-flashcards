@@ -43,6 +43,7 @@ const MainNavigator = StackNavigator({
   navigationOptions: {
       headerTintColor: white,
       headerStyle: { backgroundColor: green },
+      headerBackTitleStyle: { color: green }
     },
   },
 )

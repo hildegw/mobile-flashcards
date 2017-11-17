@@ -70,13 +70,16 @@ class AddDeckTitle extends Component {
         addDeckAndCard ({ card, deckTitle, startData })
         //update startData state property with data from database
         getAllDecks().then((result) => {this.props.allDecks({startData: result})})
-        this.props.navigation.goBack()
+        //this.props.navigation.goBack()
+        this.forceUpdate()
+
       }
   }
 
   render() {
     const deviceWidth = Dimensions.get('window').width
     const { deckTitle } = this.state
+    console.log('render called force update')
 
     return (
       <View style={styles.container}>
