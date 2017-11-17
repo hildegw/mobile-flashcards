@@ -1,65 +1,50 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, StyleSheet, Text, TouchableOpacity, Dimensions, Animated } from 'react-native'
+import { View, ScrollView, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
 import { grey, green, greyLight, yellowLight } from '../../utils/colors'
-
-//TODO revisit animation
 
 class Card extends Component {
 
-  state = {
-    animatedValue: new Animated.Value(0),
-    flip: false,
-  }
+  state = { showAnswer: false }
 
   onPress = () => {
-    if (this.state.flip) {
-      Animated.timing(this.state.animatedValue, { totalValue: 180, duration: 800 })
-      .start((finished) => this.setState({ flip: false, animatedValue: new Animated.Value(0) }))
-    } else {
-      Animated.timing(this.state.animatedValue, { totalValue: 0, duration: 800 })
-        .start((finished) => this.setState({ flip: true, animatedValue: new Animated.Value(180) }))
-    }
+    this.setState({ showAnswer: !this.state.showAnswer })
   }
 
 
   render() {
-    const backInterpolate = this.state.animatedValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['180deg', '360deg'],
-    })
-    const backAnimatedStyle = { transform: [{ rotateY: backInterpolate}] }
+
     const deviceWidth = Dimensions.get('window').width
     const { score, index } = this.props
 
     return (
-      <View style={[styles.container, {width: deviceWidth-40}]}>
-        <View style={styles.listItem} >
-          <Text style={styles.text} >
-              {this.props.question}
-          </Text>
+      <ScrollView contentContainerStyle={styles.contentContainer} >
+        <View style={[styles.container, {width: deviceWidth-40}]}>
+
+          {this.state.showAnswer
+            ? <Text style={styles.text} >
+                {this.props.answer}
+              </Text>
+            : <Text style={styles.text} >
+                {this.props.question}
+              </Text>
+          }
+
+          <TouchableOpacity
+            onPress={this.onPress}>
+            <Text style={styles.textSmall} >
+                flip
+            </Text>
+          </TouchableOpacity>
+
         </View>
-
-        <Animated.View
-          style={[backAnimatedStyle, styles.listItem]}
-          onPress={this.onPress} >
-          <Text style={styles.text} >
-              {this.props.answer}
-          </Text>
-        </Animated.View>
-
-        <TouchableOpacity
-          style={styles.listItem}
-          onPress={this.onPress}>
-          <Text style={styles.textSmall} >
-              toggle answer
-          </Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
   )}
 }
 
 const styles = StyleSheet.create({
+  contentContainer: {
+  },
   container: {
     flex: 1,
     justifyContent: 'space-between',
@@ -69,9 +54,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderTopColor: green,
     margin: 20,
-  },
-  listItem: {
-    backfaceVisibility: 'hidden',
   },
   text: {
     fontSize:20,

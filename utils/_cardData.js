@@ -25,8 +25,11 @@ export function setStartData () {
       title: 'JavaScript',
       questions: [
         {
-          question: 'What is a closure?',
+          question: 'What is a closure? and this is a very long question\n'
+            + '+1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n',
           answer: 'The combination of a function and the lexical environment within which that function was declared.'
+                    + 'and this is a very long question\n'
+                    +  '1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n'
         }
       ]
     }

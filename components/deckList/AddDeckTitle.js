@@ -97,9 +97,10 @@ class AddDeckTitle extends Component {
 
         <TextInput
           ref={'question'}
-          style={[styles.textInput, {borderColor: this.state.questionColor}, {width: deviceWidth-40}, {height: 120}]}
+          style={[styles.textInput, {borderColor: this.state.questionColor}, {width: deviceWidth-40}]}
           onChangeText={(value) => this.setState({question: value.trim()})}
           multiline={true}
+          numberOfLines={5}
           placeholder={'new question'}
           selectTextOnFocus={true}
         />
@@ -108,7 +109,7 @@ class AddDeckTitle extends Component {
 
         <TextInput
           ref={'answer'}
-          style={[styles.textInput, {borderColor: this.state.answerColor}, {width: deviceWidth-40}, {height: 120}]}
+          style={[styles.textInput, {borderColor: this.state.answerColor}, {width: deviceWidth-40}]}
           onChangeText={(value) => this.setState({answer: value.trim()})}
           multiline={true}
           placeholder={'new answer'}
@@ -149,9 +150,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 5,
     height: 40,
-    borderColor: grey,
-    borderWidth: 1,
     fontSize: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: green,
   },
   text: {
     color: grey,
