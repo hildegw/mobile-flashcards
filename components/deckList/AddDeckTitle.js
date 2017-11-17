@@ -70,9 +70,8 @@ class AddDeckTitle extends Component {
         addDeckAndCard ({ card, deckTitle, startData })
         //update startData state property with data from database
         getAllDecks().then((result) => {this.props.allDecks({startData: result})})
-        //this.props.navigation.goBack()
-        this.forceUpdate()
-
+        this.refs['question'].clear()
+        this.refs['answer'].clear()
       }
   }
 
@@ -97,6 +96,7 @@ class AddDeckTitle extends Component {
         <Text style={styles.text}> Add a new deck</Text>
 
         <TextInput
+          ref={'question'}
           style={[styles.textInput, {borderColor: this.state.questionColor}, {width: deviceWidth-40}, {height: 120}]}
           onChangeText={(value) => this.setState({question: value.trim()})}
           multiline={true}
@@ -107,6 +107,7 @@ class AddDeckTitle extends Component {
         <Text style={styles.text}> Add a new question</Text>
 
         <TextInput
+          ref={'answer'}
           style={[styles.textInput, {borderColor: this.state.answerColor}, {width: deviceWidth-40}, {height: 120}]}
           onChangeText={(value) => this.setState({answer: value.trim()})}
           multiline={true}
@@ -116,11 +117,19 @@ class AddDeckTitle extends Component {
 
         <Text style={styles.text}> Add a new answer</Text>
 
-        <SelectButton
-          onPress={() => this.onPressAddCard()}
-          children={'Add'}
-          style={[{borderColor: orange}, {width: 140}, {backgroundColor: 'transparent'}]} >
-        </SelectButton>
+        <View style={styles.buttonsInRow}>
+          <SelectButton
+            onPress={() => this.onPressAddCard()}
+            children={'Add'}
+            style={[{borderColor: orange}, {backgroundColor: 'transparent'}]} >
+          </SelectButton>
+
+          <SelectButton
+            onPress={() => this.props.navigation.goBack()}
+            children={'Go Back'}
+            style={[{backgroundColor: 'transparent'}]} >
+          </SelectButton>
+        </View>
 
       </View>
 
@@ -146,10 +155,15 @@ const styles = StyleSheet.create({
   },
   text: {
     color: grey,
-    fontSize: 16,
+    fontSize: 12,
     textAlign: 'justify',
     paddingLeft: 5,
     marginBottom: 20,
+  },
+  buttonsInRow:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    margin: 40,
   }
 })
 

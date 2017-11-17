@@ -21,9 +21,8 @@ export function addDeckAndCard ({ card, deckTitle, startData }) {
   let updatedQuestions = startData[deckTitle] !== undefined
     ? [...startData[deckTitle]['questions'], card]
     : [card]
-  console.log('API add card:', startData[deckTitle])
-  //need to use setItem to add a card, mergeItem is not working with iOS
-  //adding question incl. answer to existing deck list dataset
+  /*need to use setItem to add a card, mergeItem is not working with iOS
+    adding question incl. answer to existing deck list dataset*/
   return AsyncStorage.setItem(CARD_DATA_STORAGE, JSON.stringify({
       ...startData,
       [deckTitle]: {

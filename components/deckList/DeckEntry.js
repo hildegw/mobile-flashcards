@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { grey, greyLight, yellowLight } from '../../utils/colors'
+import { grey, green, yellowLight } from '../../utils/colors'
 
 export default class DeckEntry extends Component {
 
@@ -33,17 +33,12 @@ export default class DeckEntry extends Component {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: yellowLight,
-    borderRadius: 0,
-    marginBottom: 1,
+    marginLeft: 20,
+    marginRight: 20,
     padding: 20,
-    paddingLeft: 60,
+    paddingLeft: 40,
     justifyContent: 'center',
-    shadowRadius: 3,
-    shadowOpacity: 0.8,
-    shadowColor: greyLight,
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
+    borderBottomWidth: 2,
+    borderBottomColor: green,
   },
 })

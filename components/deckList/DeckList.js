@@ -35,7 +35,6 @@ class DeckList extends Component {
         <SelectButton
           onPress={() => this.props.navigation.navigate('AddDeckTitle', {title: 'Add a new Deck'})}
           children={'Add Deck'}
-          style={[{borderColor: orange}]}
         />
       </View>
     )
@@ -70,9 +69,11 @@ const styles = StyleSheet.create({
   deckList: {
     flex: 1,
     justifyContent: 'flex-start',
+    backgroundColor: yellowLight,
   },
   button:{
     flex: 1,
+    alignItems: 'flex-end',
     margin: 20,
   },
 })
