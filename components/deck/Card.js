@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, ScrollView, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { Image, View, ScrollView, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
 import { grey, green, greyLight, yellowLight } from '../../utils/colors'
+import flipImage from '../../assets/turn-page.png'
 
 class Card extends Component {
 
@@ -32,9 +33,7 @@ class Card extends Component {
 
         <TouchableOpacity
           onPress={this.onPress}>
-          <Text style={styles.textSmall} >
-              flip card
-          </Text>
+          <Image source={flipImage} style={styles.image} />
         </TouchableOpacity>
     </View>
   )}
@@ -58,11 +57,10 @@ const styles = StyleSheet.create({
     color: grey,
     margin: 30,
   },
-  textSmall: {
-    fontSize:12,
-    color: grey,
+  image: {
     margin: 30,
-    textDecorationLine: "underline",
+    width: 25,
+    height: 25,
   },
 })
 
