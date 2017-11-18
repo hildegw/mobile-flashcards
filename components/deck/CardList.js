@@ -98,6 +98,7 @@ class CardList extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation
     const { deckList, selectedCard, score } = this.props
     const { numberOfQuestions, selectedDeck } = this.state
     const { correctAnswers } = this.state
@@ -141,7 +142,6 @@ class CardList extends Component {
                     children={' Correct '}
                     style={[cardAnsweredCorrectly && ({backgroundColor: greenBack})]} >
                   </SelectButton>
-
                   <SelectButton
                     onPress={() => this.onPressButton('incorrect')}
                     children={'Incorrect'}
@@ -150,9 +150,13 @@ class CardList extends Component {
                 </View>
               </View>
           :   <View style={styles.buttonsInRow} >
-                <SelectButton
-                  children={'Restart'}
-                  onPress={() => this.props.navigation.goBack() }/>
+                  <SelectButton
+                    onPress={() => navigate('Deck', { title: selectedDeck.title })}
+                    children={'Go to Deck'} />
+                  <SelectButton
+                    onPress={() => navigate('CardList', { title: selectedDeck.title })}
+                    children={'Restart'}
+                    style={{borderColor: orange}} />
               </View>
         }
 

@@ -23,10 +23,7 @@ class DeckList extends Component {
   }
 
   onPressItem(title, navigate) {
-    navigate(
-      'Deck',
-      { title: title }
-    )
+    navigate('Deck', { title: title })
   }
 
   renderAddDeckButton = () => {
@@ -73,7 +70,7 @@ const styles = StyleSheet.create({
   },
   button:{
     flex: 1,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     margin: 20,
   },
 })

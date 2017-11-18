@@ -122,13 +122,13 @@ class AddDeckTitle extends Component {
           <SelectButton
             onPress={() => this.onPressAddCard()}
             children={'Add'}
-            style={[{borderColor: orange}, {backgroundColor: 'transparent'}]} >
+            style={[{backgroundColor: 'transparent'}]} >
           </SelectButton>
 
           <SelectButton
             onPress={() => this.props.navigation.goBack()}
             children={'Go Back'}
-            style={[{backgroundColor: 'transparent'}]} >
+            style={[{borderColor: orange}, {backgroundColor: 'transparent'}]} >
           </SelectButton>
         </View>
 
