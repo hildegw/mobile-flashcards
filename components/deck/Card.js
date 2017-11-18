@@ -18,9 +18,8 @@ class Card extends Component {
     const { score, index } = this.props
 
     return (
-      <ScrollView contentContainerStyle={styles.contentContainer} >
-        <View style={[styles.container, {width: deviceWidth-40}]}>
-
+      <View style={[styles.container, {width: deviceWidth-40}]}>
+        <ScrollView contentContainerStyle={styles.contentContainer} >
           {this.state.showAnswer
             ? <Text style={styles.text} >
                 {this.props.answer}
@@ -29,16 +28,15 @@ class Card extends Component {
                 {this.props.question}
               </Text>
           }
+        </ScrollView>
 
-          <TouchableOpacity
-            onPress={this.onPress}>
-            <Text style={styles.textSmall} >
-                flip
-            </Text>
-          </TouchableOpacity>
-
-        </View>
-      </ScrollView>
+        <TouchableOpacity
+          onPress={this.onPress}>
+          <Text style={styles.textSmall} >
+              flip card
+          </Text>
+        </TouchableOpacity>
+    </View>
   )}
 }
 
@@ -58,12 +56,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize:20,
     color: grey,
-    margin: 40,
+    margin: 30,
   },
   textSmall: {
     fontSize:12,
     color: grey,
-    margin: 40,
+    margin: 30,
     textDecorationLine: "underline",
   },
 })
