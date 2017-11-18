@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import { grey, greenBack, yellowDark, yellowLight, green, orangeLight, orange } from '../../utils/colors'
+import { grey, greenBack, yellowLight, green, orangeLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import SelectButton from './SelectButton'
 import Indicator from './Indicator'
@@ -9,8 +9,6 @@ import Score from './Score'
 import Card from './Card'
 import { selectCard } from './selectCardAction'
 import { scoreCounter } from './scoreAction'
-
-//TODO add score from previous try
 
 class CardList extends Component {
 
@@ -152,7 +150,9 @@ class CardList extends Component {
                 </View>
               </View>
           :   <View style={styles.buttonsInRow} >
-                <SelectButton  style={[{borderColor: yellowLight}, {marginBottom: 8}]} />
+                <SelectButton
+                  children={'Restart'}
+                  onPress={() => this.props.navigation.goBack() }/>
               </View>
         }
 

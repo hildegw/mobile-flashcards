@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Image, View, ScrollView, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
-import { grey, green, greyLight, yellowLight } from '../../utils/colors'
+import { grey, green, yellowLight } from '../../utils/colors'
 import flipImage from '../../assets/turn-page.png'
 
 class Card extends Component {
@@ -11,7 +11,6 @@ class Card extends Component {
   onPress = () => {
     this.setState({ showAnswer: !this.state.showAnswer })
   }
-
 
   render() {
 
