@@ -63,10 +63,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps (state) {
-  const { score, index } = state
-  return { score, index }
-}
+const mapStateToProps = ({ score, index }) => ({ score, index })
 
 export default connect(
   mapStateToProps,

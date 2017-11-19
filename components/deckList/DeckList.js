@@ -75,9 +75,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps (state) {
-  return state.deckList
-}
+const mapStateToProps = ({ deckList }) => (deckList)
 
 
 export default connect(
