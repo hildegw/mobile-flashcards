@@ -5,10 +5,9 @@ Readable project is implemented by me (hildegw) as part of Udacity Nanodegree. I
 
 
 ## Installing and running the project
-Download the zip-file and unpack. Go to directory where application was unpacked.
-* install all project dependencies with `yarn add`
-* start the application with `yarn start` from application directory
-* start the iOS simulator by pressing 'i'
+Download the zip-file from github and unpack. Go to directory where application was unpacked.
+* install all project dependencies with `yarn install`
+* start the application with `yarn run ios` from application directory
 
 
 ## Limitations
