@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { getAllDecks, addDeckAndCard } from '../../utils/cardApi'
 import { grey, green, yellowLight, white, orange } from '../../utils/colors'
@@ -15,9 +15,9 @@ class AddDeckTitle extends Component {
     deckTitle: '',
     question: '',
     answer: '',
-    titleColor: grey,
-    questionColor: grey,
-    answerColor: grey,
+    titleColor: green,
+    questionColor: green,
+    answerColor: green,
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -37,21 +37,21 @@ class AddDeckTitle extends Component {
       this.setState({ titleColor: orange})
       inputError = true
     } else {
-      this.setState({ titleColor: grey})
+      this.setState({ titleColor: green})
     }
 
     if (question === ''){
       this.setState({ questionColor: orange})
       inputError = true
     } else {
-      this.setState({ questionColor: grey})
+      this.setState({ questionColor: green})
     }
 
     if (answer === '') {
      this.setState({ answerColor: orange})
      inputError = true
     } else {
-      this.setState({ answerColor: grey})
+      this.setState({ answerColor: green})
     }
 
     return inputError
@@ -64,7 +64,6 @@ class AddDeckTitle extends Component {
     const card = { question: question, answer: answer }
     /* AsyncStorage mergeItem is not working on iOS, therefore handing over
       original data set with all decks plus new questions to card API to setItem */
-    //call API to update database
     if (!inputError)
       {
         addDeckAndCard ({ card, deckTitle, startData })
@@ -78,13 +77,11 @@ class AddDeckTitle extends Component {
   render() {
     const deviceWidth = Dimensions.get('window').width
     const { deckTitle } = this.state
-    console.log('render called force update')
-
     return (
       <View style={styles.container}>
 
         <TextInput
-          style={[styles.textInput, {borderColor: this.state.titleColor}, {width: deviceWidth-40}]}
+          style={[styles.textInput, {borderBottomColor: this.state.titleColor}, {width: deviceWidth-40}]}
           value={deckTitle}
           onChangeText={(value) => this.setState({deckTitle: value.trim()})}
           autoFocus={true}
@@ -97,7 +94,7 @@ class AddDeckTitle extends Component {
 
         <TextInput
           ref={'question'}
-          style={[styles.textInput, {borderColor: this.state.questionColor}, {width: deviceWidth-40}]}
+          style={[styles.textInput, {borderBottomColor: this.state.questionColor}, {width: deviceWidth-40}]}
           onChangeText={(value) => this.setState({question: value.trim()})}
           multiline={true}
           numberOfLines={5}
@@ -109,7 +106,7 @@ class AddDeckTitle extends Component {
 
         <TextInput
           ref={'answer'}
-          style={[styles.textInput, {borderColor: this.state.answerColor}, {width: deviceWidth-40}]}
+          style={[styles.textInput, {borderBottomColor: this.state.answerColor}, {width: deviceWidth-40}]}
           onChangeText={(value) => this.setState({answer: value.trim()})}
           multiline={true}
           placeholder={'new answer'}

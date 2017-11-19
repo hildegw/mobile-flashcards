@@ -9,9 +9,10 @@ import score from './components/deck/scoreReducer'
 import AddDeckTitle from './components/deckList/AddDeckTitle'
 import Deck from './components/deck/Deck'
 import CardList from './components/deck/CardList'
-import { green, white, orange, yellowLight } from './utils/colors'
+import { green, white, yellowLight } from './utils/colors'
 import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import { setLocalNotification } from './utils/notifications'
 
 const reducer = combineReducers({
   deckList,
@@ -50,8 +51,11 @@ const MainNavigator = StackNavigator({
 
 export default class App extends React.Component {
 
+  componentDidMount () {
+    setLocalNotification()
+  }
+
   render() {
-    console.log('render App, reducer:', reducer)
     return (
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>

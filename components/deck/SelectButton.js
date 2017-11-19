@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { green, white, grey, yellowLight } from '../../utils/colors'
+import { green, grey, yellowLight } from '../../utils/colors'
 
 export default function SelectButton ({ children, onPress, style = {} }) {
   return (

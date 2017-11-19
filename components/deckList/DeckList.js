@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Modal, View, TextInput, TouchableOpacity, Text, StyleSheet, Platform, FlatList, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import DeckEntry from './DeckEntry'
 import { getAllDecks } from '../../utils/cardApi'
 import { setStartData, dataSelectDeckTitles } from '../../utils/_cardData'
 import SelectButton from '../deck/SelectButton'
 import { connect } from 'react-redux'
 import { allDecks } from './deckListAction'
-import { yellowLight, white, orange, green, grey } from '../../utils/colors'
+import { yellowLight, green, grey } from '../../utils/colors'
 
 class DeckList extends Component {
 

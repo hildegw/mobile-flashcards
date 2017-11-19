@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, FlatList, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { grey, greenBack, yellowLight, green, orangeLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
@@ -9,6 +9,7 @@ import Score from './Score'
 import Card from './Card'
 import { selectCard } from './selectCardAction'
 import { scoreCounter } from './scoreAction'
+import { clearNotifications, setLocalNotification } from '../../utils/notifications'
 
 class CardList extends Component {
 
@@ -74,6 +75,9 @@ class CardList extends Component {
   }
 
   renderScore = () => {
+    //reset daily notification
+    clearNotifications().then(setLocalNotification)
+    //calculate and render score result
     const deviceWidth = Dimensions.get('window').width
     const { selectedDeck, numberOfQuestions } = this.state
     return (
@@ -98,7 +102,7 @@ class CardList extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation
+    const { navigate, goBack } = this.props.navigation
     const { deckList, selectedCard, score } = this.props
     const { numberOfQuestions, selectedDeck } = this.state
     const { correctAnswers } = this.state

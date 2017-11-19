@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { grey, greyLight, yellowLight, white, orange } from '../../utils/colors'
+import { grey, yellowLight, orange } from '../../utils/colors'
 import { dataSelectDeck } from '../../utils/_cardData'
 import Score from './Score'
 import SelectButton from './SelectButton'
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
-  //const { decklist, allDecks } = state
   return state.deckList
 }
 
