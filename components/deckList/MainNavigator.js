@@ -21,14 +21,7 @@ const MainNavigator = StackNavigator({
   Home: { screen: DeckList, cardStyle: {backgroundColor: yellowLight} },
   Deck: { screen: Deck },
   AddDeckTitle: { screen: AddDeckTitle },
-  CardList: {
-    screen: CardList,
-    mode: 'modal',
-    cardStyle: {
-        backgroundColor: 'transparent',
-        opacity: 1,
-      }
-    }
+  CardList: { screen: CardList }
   }, {
   navigationOptions: {
       headerTintColor: white,
