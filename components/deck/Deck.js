@@ -7,25 +7,38 @@ import Score from './Score'
 import SelectButton from './SelectButton'
 import { scoreCounter } from './scoreAction'
 import { allDecks } from '../deckList/deckListAction'
+import { getAllDecks } from '../../utils/cardApi'
+
 
 class Deck extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
+    console.log('nav.state.params: ', navigation.state.params)
     return { title: title + ' Deck'}
   }
 
   componentDidMount() {
     //reset score counter in store
     this.props.scoreCounter(0)
+    /*/get the newest data
+    getAllDecks().then((result) => {
+      const { startData } = result
+      this.props.allDecks({startData: startData})
+      console.log('result', result)
+    })*/
   }
 
   render() {
     const { startData } = this.props
     const { title } = this.props.navigation.state.params
     const selectedDeck = dataSelectDeck(startData, title)
-    const numberOfQuestions = selectedDeck['questions'].length
+    const numberOfQuestions = (selectedDeck['questions'] !== undefined)
+      ? selectedDeck['questions'].length
+      : 0
     const { navigate } = this.props.navigation
+    console.log('render data for Deck: ', selectedDeck)
+
 
     return (
       <View style={styles.container}>

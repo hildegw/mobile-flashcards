@@ -39,6 +39,7 @@ class DeckList extends Component {
 
   render() {
     const { startData } = this.props
+    console.log('DeckList, startData: ', startData)
     const listData = dataSelectDeckTitles(startData)
 
     return (

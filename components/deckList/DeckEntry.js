@@ -11,6 +11,7 @@ export default class DeckEntry extends Component {
 
   render () {
     const { title, count } = this.props
+
     return (
       <TouchableOpacity onPress={this.onPress} >
         <View style={styles.item}>

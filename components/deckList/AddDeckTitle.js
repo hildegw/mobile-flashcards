@@ -68,15 +68,19 @@ class AddDeckTitle extends Component {
       {
         addDeckAndCard ({ card, deckTitle, startData })
         //update startData state property with data from database
-        getAllDecks().then((result) => {this.props.allDecks({startData: result})})
+        getAllDecks().then((result) => {
+          this.props.allDecks({startData: result})
+        })
         this.refs['question'].clear()
         this.refs['answer'].clear()
+        this.props.navigation.navigate('Deck', { title: deckTitle })
       }
   }
 
   render() {
     const deviceWidth = Dimensions.get('window').width
     const { deckTitle } = this.state
+
     return (
       <View style={styles.container}>
 
@@ -124,7 +128,7 @@ class AddDeckTitle extends Component {
 
           <SelectButton
             onPress={() => this.props.navigation.goBack()}
-            children={'Go Back'}
+            children={'Discard'}
             style={[{borderColor: orange}, {backgroundColor: 'transparent'}]} >
           </SelectButton>
         </View>
