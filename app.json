@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "name": "Learning Cards",
+    "icon": "./assets/turn-page.png",
+    "version": "1.0.0",
+    "slug": "learningCards",
+    "sdkVersion": "21.0.0",
+    "ios": {
+      "bundleIdentifier": "com.hildegw.learningCards"
+    },
+    "android": {
+      "package": "com.hildegw.learningCards"
+    }
   }
 }
